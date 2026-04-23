@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://ui6nhlyt3jwf"]
+
+[ext_resource type="PackedScene" uid="uid://b7bljlr57nfjw" path="res://Levels/Level_Base.tscn" id="1_n0qsc"]
+[ext_resource type="PackedScene" uid="uid://c6m00q7ebkfhg" path="res://Characters/slime.tscn" id="2_dilhk"]
+[ext_resource type="Script" uid="uid://df3vcvdxxspmj" path="res://temp.gd" id="3_3mhv4"]
+[ext_resource type="PackedScene" uid="uid://c6vuoqhkj5pqq" path="res://Characters/enemy.tscn" id="3_rf6l5"]
+[ext_resource type="Texture2D" uid="uid://dyrw1o1ebi2uf" path="res://Sprites/Background.png" id="5_syshm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n0qsc"]
+size = Vector2(4114, 137)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf6l5"]
+size = Vector2(5713, 125.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rf6l5"]
+radius = 18.027756
+
+[node name="Level 1" unique_id=1475599819 instance=ExtResource("1_n0qsc")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="1" unique_id=742241090 groups=["floor_or_wall"]]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=1719039004]
+position = Vector2(2033, 595.5)
+shape = SubResource("RectangleShape2D_n0qsc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" index="1" unique_id=471835326]
+position = Vector2(3165, 449)
+shape = SubResource("RectangleShape2D_rf6l5")
+
+[node name="Slime" parent="." index="2" unique_id=479474688 instance=ExtResource("2_dilhk")]
+position = Vector2(88, 395)
+
+[node name="Camera2D" parent="Slime" index="6" unique_id=1533571527]
+zoom = Vector2(1, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." index="3" unique_id=1003542243]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_3mhv4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" index="0" unique_id=1806558978]
+shape = SubResource("CircleShape2D_rf6l5")
+disabled = true
+
+[node name="Enemy" parent="." index="4" unique_id=5289285 instance=ExtResource("3_rf6l5")]
+position = Vector2(1072, 336)
+
+[node name="Enemy2" parent="." index="5" unique_id=726102218 instance=ExtResource("3_rf6l5")]
+position = Vector2(2010, 336)
+
+[node name="ColorRect" type="ColorRect" parent="." index="6" unique_id=592835240]
+offset_left = -25.0
+offset_top = 526.0
+offset_right = 6019.0
+offset_bottom = 666.0
+color = Color(0.26381302, 0.18299195, 0.07158614, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="." index="7" unique_id=1478858936]
+offset_left = 309.0
+offset_top = 387.0
+offset_right = 6018.0
+offset_bottom = 527.0
+color = Color(0.17205822, 0.13319537, 0.026823785, 1)
+
+[node name="Background" type="Sprite2D" parent="." index="8" unique_id=763262517]
+z_index = -1
+position = Vector2(778.99994, 164)
+scale = Vector2(4.3384466, 4.35706)
+texture = ExtResource("5_syshm")
+
+[node name="Background2" type="Sprite2D" parent="Background" index="0" unique_id=450612967]
+position = Vector2(575.77435, -0.21674347)
+scale = Vector2(1.0000001, 1)
+texture = ExtResource("5_syshm")
+
+[node name="Background3" type="Sprite2D" parent="Background" index="1" unique_id=1464962148]
+position = Vector2(1151.9324, 0.6502881)
+scale = Vector2(1.0000001, 1)
+texture = ExtResource("5_syshm")
+
+[editable path="Slime"]

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b7bljlr57nfjw"]
+
+[ext_resource type="Script" uid="uid://dshpg6mgojxf6" path="res://Levels/Scripts/Level.gd" id="1_j2yby"]
+
+[node name="Level_Base" type="Node2D" unique_id=1475599819 groups=["level_base"]]
+script = ExtResource("1_j2yby")
+metadata/_custom_type_script = "uid://dshpg6mgojxf6"
+
+[node name="spawn_points" type="Node2D" parent="." unique_id=1089583903 groups=["spawn_points"]]
+
+[node name="default" type="Marker2D" parent="spawn_points" unique_id=634608973]
+position = Vector2(-579, 684)
+
+[node name="mouse" type="Marker2D" parent="spawn_points" unique_id=9776545]

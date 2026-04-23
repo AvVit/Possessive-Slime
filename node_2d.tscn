@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://biinmgbl45fyr"]
+
+[ext_resource type="PackedScene" uid="uid://c6vuoqhkj5pqq" path="res://Characters/enemy.tscn" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://dyrw1o1ebi2uf" path="res://Sprites/Background.png" id="2_0e48y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
+size = Vector2(7914, 125.25)
+
+[node name="Node2D" type="Node2D" unique_id=1768553247]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=506685667]
+z_index = -1
+position = Vector2(-824, -196)
+scale = Vector2(4.3384466, 4.35706)
+texture = ExtResource("2_0e48y")
+
+[node name="Background2" type="Sprite2D" parent="Background" unique_id=1174589877]
+position = Vector2(575.77435, -0.21674347)
+scale = Vector2(1.0000001, 1)
+texture = ExtResource("2_0e48y")
+
+[node name="Background3" type="Sprite2D" parent="Background" unique_id=1296320359]
+position = Vector2(1151.9324, 0.6502881)
+scale = Vector2(1.0000001, 1)
+texture = ExtResource("2_0e48y")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1871873393 groups=["floor_or_wall"]]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1709757407]
+position = Vector2(1686, 439.375)
+shape = SubResource("RectangleShape2D_0e48y")
+
+[node name="Enemy" parent="." unique_id=5289285 instance=ExtResource("1_wtcfe")]
+position = Vector2(377, 303)
+
+[node name="weapon" parent="Enemy" index="7" unique_id=1930417615 groups=["weapons"]]
+
+[node name="Camera2D" type="Camera2D" parent="Enemy" unique_id=1741934219]
+position = Vector2(-8, 4)
+
+[node name="Enemy2" parent="." unique_id=2142903091 instance=ExtResource("1_wtcfe")]
+position = Vector2(552, 302)
+dir = Vector2(-1, 0)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1817298081]
+offset_left = -2269.0
+offset_top = 375.0
+offset_right = 5643.0
+offset_bottom = 515.0
+color = Color(0.26381302, 0.18299195, 0.07158614, 1)
+
+[editable path="Enemy"]
+[editable path="Enemy2"]

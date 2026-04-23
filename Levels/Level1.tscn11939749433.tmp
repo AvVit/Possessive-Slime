@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cdih23awkqp8s"]
+
+[ext_resource type="PackedScene" uid="uid://ctcjtbp584she" path="res://Characters/mouse.tscn" id="1_w77jt"]
+[ext_resource type="Script" uid="uid://clytpa1bdvf1q" path="res://Characters/scripts/mouse states/fallState.gd" id="2_3anf8"]
+[ext_resource type="PackedScene" uid="uid://bf2ro24tyk712" path="res://Characters/Fish.tscn" id="3_fhqol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4eo7"]
+size = Vector2(3595, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3anf8"]
+size = Vector2(65.484375, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhqol"]
+size = Vector2(424.3711, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w77jt"]
+size = Vector2(125.5, 1225)
+
+[node name="Node2D" type="Node2D" unique_id=1580476000]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=149838751]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1574898516]
+position = Vector2(739.5, 1051)
+shape = SubResource("RectangleShape2D_a4eo7")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1354512537]
+position = Vector2(-151, 922)
+shape = SubResource("RectangleShape2D_3anf8")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=704167531]
+position = Vector2(297, 922)
+shape = SubResource("RectangleShape2D_3anf8")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=1947609755]
+position = Vector2(76, 858)
+shape = SubResource("RectangleShape2D_fhqol")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1996006617]
+position = Vector2(-1030.25, 512.5)
+shape = SubResource("RectangleShape2D_w77jt")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1842157343]
+position = Vector2(2499, 519)
+shape = SubResource("RectangleShape2D_w77jt")
+
+[node name="Mouse" parent="." unique_id=1777583073 instance=ExtResource("1_w77jt")]
+position = Vector2(-390, 608)
+
+[node name="fall" type="Node" parent="Mouse/PlayerFSM" parent_id_path=PackedInt32Array(1777583073, 637480418) index="4" unique_id=737539103]
+script = ExtResource("2_3anf8")
+state_name = "fall"
+metadata/_custom_type_script = "uid://bqhp0brqcbfys"
+
+[node name="Camera2D" type="Camera2D" parent="Mouse" unique_id=290489388]
+position = Vector2(-11, 5)
+
+[node name="Fish" parent="." unique_id=291399510 instance=ExtResource("3_fhqol")]
+
+[editable path="Mouse"]
