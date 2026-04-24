@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://df3vcvdxxspmj" path="res://temp.gd" id="3_3mhv4"]
 [ext_resource type="PackedScene" uid="uid://c6vuoqhkj5pqq" path="res://Characters/enemy.tscn" id="3_rf6l5"]
 [ext_resource type="Texture2D" uid="uid://dyrw1o1ebi2uf" path="res://Sprites/Background.png" id="5_syshm"]
+[ext_resource type="PackedScene" uid="uid://38nsie5bsdf4" path="res://Scenes/game_over.tscn" id="6_rfktq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0qsc"]
 size = Vector2(4114, 137)
@@ -15,11 +16,12 @@ size = Vector2(5713, 125.25)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rf6l5"]
 radius = 18.027756
 
-[node name="Level 1" unique_id=1475599819 instance=ExtResource("1_n0qsc")]
+[node name="Level 1" unique_id=1475599819 node_paths=PackedStringArray("game_over_node") instance=ExtResource("1_n0qsc")]
+game_over_node = NodePath("CanvasLayer/Game Over")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="1" unique_id=742241090 groups=["floor_or_wall"]]
 collision_layer = 7
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=1719039004]
 position = Vector2(2033, 595.5)
@@ -31,6 +33,12 @@ shape = SubResource("RectangleShape2D_rf6l5")
 
 [node name="Slime" parent="." index="2" unique_id=479474688 instance=ExtResource("2_dilhk")]
 position = Vector2(88, 395)
+
+[node name="PossessionRange" parent="Slime" index="3" unique_id=455040854]
+collision_mask = 4
+
+[node name="DeadFace" parent="Slime/Polygons" parent_id_path=PackedInt32Array(479474688, 55325449) index="4" unique_id=2062090138]
+z_index = 1
 
 [node name="Camera2D" parent="Slime" index="6" unique_id=1533571527]
 zoom = Vector2(1, 1)
@@ -79,5 +87,10 @@ texture = ExtResource("5_syshm")
 position = Vector2(1151.9324, 0.6502881)
 scale = Vector2(1.0000001, 1)
 texture = ExtResource("5_syshm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="9" unique_id=258110210]
+
+[node name="Game Over" parent="CanvasLayer" index="0" unique_id=641634256 instance=ExtResource("6_rfktq")]
+visible = false
 
 [editable path="Slime"]

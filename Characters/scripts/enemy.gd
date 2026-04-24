@@ -7,6 +7,8 @@ class_name Enemy
 @onready var wall_detect : Area2D = $"Wall Detection"
 @onready var fsm : StateMachine = $EnemyFSM
 @onready var posses_sign = $"Possess Sign"
+@onready var health_bar = $UI/health
+@onready var UI = $UI
 
 @export var dir_change_speed := 1
 
@@ -38,7 +40,13 @@ func _ready() -> void:
 			player_ref = player
 
 func _process(delta: float) -> void:
+	health_bar.value = health
+	if health <= 0 and fsm.current_state.state_name != "dead":
+		fsm.force_transition("dead")
+
 	if player_ref:
+		if player_ref.is_dead and player_visible:
+			player_visible = false
 		if vulnerable and !player_ref.vulnerable_poss.get(self):
 			yes_vulnerable.emit(self)
 		elif !vulnerable and player_ref.vulnerable_poss.get(self):
@@ -46,10 +54,12 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if self.dir.x != 0:
 		transform.x = sign(dir.x) * abs(transform.x)
+		UI.scale.x = transform.x.x
 
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		if body.is_dead: return
 		print(name, ": Player seen")
 		player_visible = true
 
@@ -62,6 +72,7 @@ func _on_alert_area_body_exited(body: Node2D) -> void:
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		if body.is_dead: return
 		print(name, ": Player in attack range")
 		player_in_attack_range = true
 
@@ -84,3 +95,10 @@ func show_possess_sign() -> void:
 
 func hide_possess_sign() -> void:
 	posses_sign.hide()
+
+
+func _on_hurt_area_body_entered(body: Node2D) -> void:
+	if body is Weapon and health > 0:
+		health -= body.damage
+		if health <= 0:
+			health = 0

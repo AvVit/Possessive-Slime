@@ -10,7 +10,7 @@ var current_speed := 0
 var is_dead := false
 var possess_in_range : Dictionary[Node2D, bool] = {}
 var vulnerable_poss : Dictionary[Node2D, bool] = {}
-var health := 100.0
+var health := 20.0
 var poss_point : Node2D
 
 @export var grav_value := 1
@@ -35,6 +35,7 @@ var poss_point : Node2D
 
 signal parry(enem : Enemy)
 signal possessing
+signal player_dead
 
 func _ready() -> void:
 	for body in get_tree().get_nodes_in_group("possessable"):
@@ -63,6 +64,7 @@ func _process(delta: float) -> void:
 	move_and_slide()
 	if(health <= 0 && FSM.current_state.state_name != "dead"):
 		die()
+		player_dead.emit()
 
 func harden():
 	Shell.show()
