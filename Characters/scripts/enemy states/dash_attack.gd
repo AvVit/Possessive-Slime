@@ -48,6 +48,9 @@ func exit():
 	enem_ref.anim_player.animation_finished.disconnect(_on_attack_finished)
 
 func process(delta : float):
+	if((enem_ref.player_in_attack_range or enem_ref.possess_in_attack_range) and dash):
+		on_dash_timeout()
+		dash_timer.stop()
 	if(!enem_ref.player_visible and !enem_ref.possess_visible):
 		transition_to.emit("idle", self)
 		#print(enem_ref.name, ": Player out of visible range.")
@@ -66,17 +69,14 @@ func _on_attack_finished(attack : String):
 	print("finished: ", attack)
 	
 	if(get_parent().current_state == self and attack == "attack_charge"):
+		if(enem_ref.player_in_attack_range or enem_ref.possess_in_attack_range):
+			on_dash_timeout()
+			return
 		var dist = 0
 		dash = true
 		if player_ref:
 			dist = player_ref.global_position.x - enem_ref.global_position.x
-			if player_ref.velocity.x == 0:
-				var prev = dist
-				dist -= 60 * sign(enem_ref.dir.x)
-				if sign(prev) != sign(dist):
-					dist = prev
-			else:
-				dist += player_ref.velocity.x/10
+
 			enem_ref.dir.x = sign(dist)
 			dash_time = minf(enem_ref.max_dash_dist, abs(dist)) / enem_ref.dash_speed
 		dash_timer.wait_time = dash_time
@@ -84,15 +84,15 @@ func _on_attack_finished(attack : String):
 		print("dash dist: ",  minf(enem_ref.max_dash_dist, abs(dist)), " / speed: ", enem_ref.dash_speed, " = dash_time: ", dash_time)
 
 	if(get_parent().current_state == self and (attack == "attack_discharge" or attack == "attack_hurt")):
-		if(!enem_ref.player_in_attack_range and enem_ref.player_visible):
+		if(!enem_ref.player_in_dash_range and enem_ref.player_visible):
 			transition_to.emit("chase", self)
 			#print(enem_ref.name, ": Player out of attack range.")
 			return
-		elif(!enem_ref.possess_in_attack_range and enem_ref.possess_visible):
+		elif(!enem_ref.possess_in_dash_range and enem_ref.possess_visible):
 			transition_to.emit("pos_chase", self)
 			#print(enem_ref.name, ": Player out of attack range.")
 			return
-		if enem_ref.possess_visible or enem_ref.player_visible:
+		elif enem_ref.possess_visible or enem_ref.player_visible:
 			enem_ref.anim_player.play("attack_charge")
 
 func request_transition(state_name : String, params : Dictionary = {}):

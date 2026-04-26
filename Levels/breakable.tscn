@@ -71,12 +71,12 @@ shape = SubResource("RectangleShape2D_62b6n")
 libraries/ = SubResource("AnimationLibrary_pon27")
 
 [node name="StarsLabel" type="Label" parent="." unique_id=250678455]
-offset_left = 2834.0
-offset_top = -45.0
-offset_right = 2874.0
-offset_bottom = -5.0
+offset_left = 2833.0
+offset_top = -75.0
+offset_right = 2898.0
+offset_bottom = 7.0
 theme = ExtResource("3_pon27")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 59
 text = ": 1"
 horizontal_alignment = 1
 

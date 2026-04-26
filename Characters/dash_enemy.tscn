@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bwb2ilsvdgd2s" path="res://Sprites/bat.png" id="3_i6a58"]
 [ext_resource type="Script" uid="uid://g3a7h5wv6tne" path="res://State Machine/State Machine.gd" id="4_agnop"]
 [ext_resource type="Script" uid="uid://ciy7r12631dax" path="res://Characters/scripts/enemy states/walk.gd" id="5_hngvq"]
-[ext_resource type="Script" uid="uid://c7yocxil7bwoi" path="res://Characters/scripts/enemy states/chase.gd" id="6_3ci1m"]
-[ext_resource type="Script" uid="uid://b14p0ayxtgp4t" path="res://Characters/scripts/enemy states/p_chase.gd" id="7_5mpi6"]
+[ext_resource type="Script" uid="uid://cxv1cesur8an2" path="res://Characters/scripts/dash enemy satates/chase.gd" id="7_i6a58"]
+[ext_resource type="Script" uid="uid://cgd22fuexaddp" path="res://Characters/scripts/dash enemy satates/pos_chase.gd" id="8_i6a58"]
 [ext_resource type="Script" uid="uid://dlqbmj6i58r46" path="res://Characters/scripts/enemy states/dash_attack.gd" id="8_q5oro"]
 [ext_resource type="Script" uid="uid://lglevsnkj24k" path="res://Characters/scripts/enemy states/parried.gd" id="9_btpob"]
 [ext_resource type="Script" uid="uid://crkoj1mp2u0ws" path="res://Characters/scripts/enemy states/idle.gd" id="10_2baqh"]
@@ -32,10 +32,10 @@ height = 80.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_04wy3"]
 radius = 157.0
-height = 1264.0
+height = 1720.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rtu5t"]
-size = Vector2(157.00002, 1264)
+size = Vector2(157.00002, 1716)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ff3nx"]
 radius = 14.0
@@ -1840,7 +1840,6 @@ metadata/_custom_type_script = "uid://chklni26vsuh2"
 shape = SubResource("CapsuleShape2D_p6t1j")
 
 [node name="Alert Area" type="Area2D" parent="." unique_id=1031712309]
-visible = false
 z_index = 3
 collision_mask = 5
 
@@ -1980,11 +1979,11 @@ script = ExtResource("5_hngvq")
 state_name = "walk"
 
 [node name="chase" type="Node" parent="EnemyFSM" unique_id=1212595573]
-script = ExtResource("6_3ci1m")
+script = ExtResource("7_i6a58")
 state_name = "chase"
 
 [node name="pos_chase" type="Node" parent="EnemyFSM" unique_id=1138114040]
-script = ExtResource("7_5mpi6")
+script = ExtResource("8_i6a58")
 state_name = "pos_chase"
 metadata/_custom_type_script = "uid://cetsxui12vn7q"
 
