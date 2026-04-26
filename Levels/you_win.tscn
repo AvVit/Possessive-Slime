@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c6qi36ucqjgcp"]
+
+[ext_resource type="Texture2D" uid="uid://coc4gbsd5ms8" path="res://Sprites/sky.jpg" id="1_hxple"]
+[ext_resource type="Script" uid="uid://dcwa121pmhsnm" path="res://Levels/Scripts/you_win.gd" id="1_m3mmu"]
+[ext_resource type="Theme" uid="uid://bvec1t26122em" path="res://resources/button.tres" id="2_biuiu"]
+
+[sub_resource type="Theme" id="Theme_ojehl"]
+Label/constants/outline_size = 36
+
+[node name="You Win" type="Node2D" unique_id=1595826832]
+script = ExtResource("1_m3mmu")
+
+[node name="Sky" type="Sprite2D" parent="." unique_id=722690316]
+position = Vector2(637.25006, 314.2501)
+scale = Vector2(0.65075004, 0.65075004)
+texture = ExtResource("1_hxple")
+
+[node name="Label" type="Label" parent="." unique_id=1914862950]
+offset_left = 185.0
+offset_top = 119.0
+offset_right = 1132.0
+offset_bottom = 454.0
+theme = SubResource("Theme_ojehl")
+theme_override_font_sizes/font_size = 158
+text = "YOU WIN!"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1979020195]
+offset_left = 540.0
+offset_top = 419.0
+offset_right = 764.0
+offset_bottom = 500.0
+theme = ExtResource("2_biuiu")
+theme_override_font_sizes/font_size = 53
+text = "Replay"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
