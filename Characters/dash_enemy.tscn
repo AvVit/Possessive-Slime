@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://7dacht872uul"]
 
 [ext_resource type="Script" uid="uid://cmm773fs7qfk8" path="res://Characters/scripts/dash_enemy.gd" id="1_q5oro"]
+[ext_resource type="PackedScene" uid="uid://bh845mui35g4p" path="res://Levels/star.tscn" id="2_i6a58"]
 [ext_resource type="Script" uid="uid://qd647hb12oku" path="res://Characters/scripts/weapons/weapon.gd" id="2_oqrqs"]
 [ext_resource type="Texture2D" uid="uid://bwb2ilsvdgd2s" path="res://Sprites/bat.png" id="3_i6a58"]
 [ext_resource type="Script" uid="uid://g3a7h5wv6tne" path="res://State Machine/State Machine.gd" id="4_agnop"]
@@ -16,7 +17,7 @@
 [ext_resource type="Script" uid="uid://ckjc1moirlqi1" path="res://Characters/scripts/enemy states/p_idle.gd" id="14_8gmv2"]
 [ext_resource type="Script" uid="uid://ckp651ari674s" path="res://Characters/scripts/dash enemy satates/p_walk.gd" id="15_oqrqs"]
 [ext_resource type="Script" uid="uid://bxycf1n85sf5u" path="res://Characters/scripts/dash enemy satates/p_jump.gd" id="16_q5oro"]
-[ext_resource type="Script" uid="uid://bpski0as4h2q5" path="res://Characters/scripts/enemy states/p_fall.gd" id="17_6kvrd"]
+[ext_resource type="Script" uid="uid://cjsvleyu6pjjt" path="res://Characters/scripts/dash enemy satates/p_fall.gd" id="17_oqrqs"]
 [ext_resource type="Script" uid="uid://clcpamcyaqny8" path="res://Characters/scripts/enemy states/p_attack.gd" id="18_l5c8b"]
 [ext_resource type="Script" uid="uid://ld063raho07" path="res://Characters/scripts/enemy states/p_dash.gd" id="19_q5oro"]
 [ext_resource type="Script" uid="uid://cotm5j1ch2h48" path="res://Characters/scripts/enemy states/dead.gd" id="20_v5kgf"]
@@ -573,6 +574,94 @@ tracks/6/keys = {
 "values": [Vector2(0, -48)]
 }
 
+[sub_resource type="Animation" id="Animation_agnop"]
+resource_name = "attack_charge_hurt"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.8666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(6.975, -23), Vector2(-6, -21), Vector2(-10.775, -26.27)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.8666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.6230825429619754, -1.019667, -1.019667]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.45, 0.74, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 4.4999995), Vector2(0, 6.4999995), Vector2(0, 4.4999995), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.45, 0.74, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.8875), Vector2(1, 0.8375), Vector2(1, 0.8875), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("poss_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -48)]
+}
+
 [sub_resource type="Animation" id="Animation_oqrqs"]
 resource_name = "attack_discharge"
 length = 1.8666667
@@ -623,6 +712,94 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(),
 "update": 0,
 "values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.1799998),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.16666669),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("poss_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_hngvq"]
+resource_name = "attack_discharge_hurt"
+length = 1.8666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666666, 0.13333333, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-10.775, -26.27), Vector2(30.000002, -3.000002), Vector2(27.17, -8.745), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666666, 0.13333333, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.019667, 1.561322, 1.6144295580947547, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.94, 1.66, 1.8666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2.5), Vector2(0, 5.000001), Vector2(0, 2.5), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.94, 1.66, 1.8666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9375), Vector2(1, 0.87500006), Vector2(1, 0.9375), Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1540,7 +1717,9 @@ _data = {
 &"attack": SubResource("Animation_7n8kr"),
 &"attack2": SubResource("Animation_sdfay"),
 &"attack_charge": SubResource("Animation_q5oro"),
+&"attack_charge_hurt": SubResource("Animation_agnop"),
 &"attack_discharge": SubResource("Animation_oqrqs"),
+&"attack_discharge_hurt": SubResource("Animation_hngvq"),
 &"attack_hurt": SubResource("Animation_a28xf"),
 &"dead": SubResource("Animation_ff3nx"),
 &"fall": SubResource("Animation_s3edj"),
@@ -1557,8 +1736,10 @@ _data = {
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_q5oro")
+num_stars = 2
 max_posture = 200
 posture_recovery_speed = 3.0
+star = ExtResource("2_i6a58")
 possess_point = NodePath("poss_point")
 metadata/_custom_type_script = "uid://chklni26vsuh2"
 
@@ -1739,6 +1920,7 @@ metadata/_custom_type_script = "uid://ducgl5gw61alq"
 
 [node name="p_walk" type="Node" parent="EnemyFSM" unique_id=635218336]
 script = ExtResource("15_oqrqs")
+state_name = "p_walk"
 metadata/_custom_type_script = "uid://ducgl5gw61alq"
 
 [node name="p_jump" type="Node" parent="EnemyFSM" unique_id=55592982]
@@ -1747,7 +1929,7 @@ state_name = "p_jump"
 metadata/_custom_type_script = "uid://ducgl5gw61alq"
 
 [node name="p_fall" type="Node" parent="EnemyFSM" unique_id=1305765244]
-script = ExtResource("17_6kvrd")
+script = ExtResource("17_oqrqs")
 state_name = "p_fall"
 metadata/_custom_type_script = "uid://ducgl5gw61alq"
 

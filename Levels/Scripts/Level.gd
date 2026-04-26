@@ -5,6 +5,7 @@ class_name Level
 @export var default_spawn : Marker2D
 @export var game_over_node : Node2D
 @export var player_ref : Slime
+var stars = 0
 
 func _ready() -> void:
 	game_over_node.hide()
@@ -15,3 +16,6 @@ func _ready() -> void:
 
 func game_over():
 	game_over_node.show()
+
+func collected():
+	stars += 1

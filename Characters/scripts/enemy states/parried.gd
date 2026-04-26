@@ -16,6 +16,7 @@ func enter(params: Dictionary = {}):
 
 func exit():
 	super.exit()
+	enem_ref.posture = enem_ref.max_posture - 10
 	#enem_ref.posture = 0
 	enem_ref.anim_player.animation_finished.disconnect(_on_stun_finished)
 
@@ -25,6 +26,10 @@ func process(delta : float):
 func _on_stun_finished(parry : String):
 	print("finished: ", parry)
 	if(get_parent().current_state == self and parry == "parried"):
+		if(enem_ref.is_possessed):
+			transition_to.emit("p_idle", self)
+			return
+		
 		if(enem_ref.player_visible and enem_ref.player_in_attack_range):
 			transition_to.emit("attack", self)
 			return

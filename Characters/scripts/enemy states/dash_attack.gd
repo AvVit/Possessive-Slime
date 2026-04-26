@@ -70,6 +70,13 @@ func _on_attack_finished(attack : String):
 		dash = true
 		if player_ref:
 			dist = player_ref.global_position.x - enem_ref.global_position.x
+			if player_ref.velocity.x == 0:
+				var prev = dist
+				dist -= 60 * sign(enem_ref.dir.x)
+				if sign(prev) != sign(dist):
+					dist = prev
+			else:
+				dist += player_ref.velocity.x/10
 			enem_ref.dir.x = sign(dist)
 			dash_time = minf(enem_ref.max_dash_dist, abs(dist)) / enem_ref.dash_speed
 		dash_timer.wait_time = dash_time
@@ -85,7 +92,7 @@ func _on_attack_finished(attack : String):
 			transition_to.emit("pos_chase", self)
 			#print(enem_ref.name, ": Player out of attack range.")
 			return
-		elif enem_ref.possess_visible or enem_ref.player_visible:
+		if enem_ref.possess_visible or enem_ref.player_visible:
 			enem_ref.anim_player.play("attack_charge")
 
 func request_transition(state_name : String, params : Dictionary = {}):
@@ -93,9 +100,10 @@ func request_transition(state_name : String, params : Dictionary = {}):
 		if params.has("damage"):
 			enem_ref.take_damage(params["damage"])
 			var pos = enem_ref.anim_player.current_animation_position
-			enem_ref.anim_player.play("attack_hurt")
-			enem_ref.anim_player.seek(pos, true)
-			hurt_timer.start()
+			#
+			#enem_ref.anim_player.play("attack_hurt")
+			#enem_ref.anim_player.seek(pos, true)
+			#hurt_timer.start()
 	else:
 		super.request_transition(state_name, params)
 

@@ -11,10 +11,12 @@ class_name Enemy
 @onready var UI = $UI
 @onready var posture_bar : ProgressBar = $UI/posture
 
+@export var num_stars := 1
 @export var dir_change_speed := 1
 @export var posture := 0
 @export var max_posture := 100
 @export var posture_recovery_speed := 0.5
+@export var star : PackedScene
 
 var non_zero_dir := Vector2.RIGHT
 var is_dead = false
@@ -63,6 +65,8 @@ func _process(delta: float) -> void:
 	if(posture >= max_posture):
 		posture = max_posture
 		vulnerable = true
+		if(fsm.current_state.state_name != "parried"):
+			fsm.force_transition("parried")
 	else:
 		vulnerable = false
 
@@ -147,6 +151,7 @@ func _on_hurt_area_area_entered(area: Area2D) -> void:
 	if health == 0:
 		return
 	if area is Weapon:
+		posture += area.posture_damage
 		print("Enemy :: OUCH : ", area.damage)
 		#take_damage(area.damage)
 		var params : Dictionary

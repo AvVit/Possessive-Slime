@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bh845mui35g4p"]
+
+[ext_resource type="Script" uid="uid://nr125el5xmhv" path="res://Levels/Scripts/star.gd" id="1_7bevn"]
+[ext_resource type="Texture2D" uid="uid://c7f7ctn6htoh0" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/star.png" id="1_ubhve"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7bevn"]
+radius = 11.401754
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ubhve"]
+radius = 18.0
+
+[node name="Star" type="CharacterBody2D" unique_id=2064241484]
+z_index = 6
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_7bevn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1175116722]
+shape = SubResource("CircleShape2D_7bevn")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=282725723]
+position = Vector2(0, -2.861023e-06)
+scale = Vector2(0.1826484, 0.16450217)
+texture = ExtResource("1_ubhve")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1126892735]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=138362034]
+shape = SubResource("CircleShape2D_ubhve")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

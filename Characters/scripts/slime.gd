@@ -210,6 +210,8 @@ func on_poss_not_vulnerable(body : Node2D):
 var possessed_enemy : Enemy = null
 
 func possess(target: Possessable) -> void:
+	if possessed_enemy:
+		unpossess(possessed_enemy)
 	if target == null:
 		return
 	if !(target is Enemy):
@@ -221,7 +223,7 @@ func possess(target: Possessable) -> void:
 
 	# store reference
 	possessed_enemy = enemy
-
+	possessed_enemy.posture = 0
 	# teleport slime to possession point
 	if enemy.possess_point:
 		poss_point = enemy.possess_point

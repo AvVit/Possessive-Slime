@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bloogk54pl2t2" path="res://Characters/scripts/enemy.gd" id="1_04wy3"]
 [ext_resource type="Script" uid="uid://qd647hb12oku" path="res://Characters/scripts/weapons/weapon.gd" id="2_dcb8l"]
 [ext_resource type="Script" uid="uid://g3a7h5wv6tne" path="res://State Machine/State Machine.gd" id="2_gh648"]
+[ext_resource type="PackedScene" uid="uid://bh845mui35g4p" path="res://Levels/star.tscn" id="2_r1tv3"]
 [ext_resource type="Texture2D" uid="uid://bwb2ilsvdgd2s" path="res://Sprites/bat.png" id="3_ff3nx"]
 [ext_resource type="Script" uid="uid://ciy7r12631dax" path="res://Characters/scripts/enemy states/walk.gd" id="3_gh648"]
 [ext_resource type="Script" uid="uid://crkoj1mp2u0ws" path="res://Characters/scripts/enemy states/idle.gd" id="4_mpxx0"]
@@ -1291,6 +1292,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_04wy3")
 posture_recovery_speed = 10.0
+star = ExtResource("2_r1tv3")
 possess_point = NodePath("poss_point")
 metadata/_custom_type_script = "uid://chklni26vsuh2"
 
@@ -1505,6 +1507,7 @@ state_name = "fall"
 position = Vector2(0, -48)
 
 [node name="UI" type="Control" parent="." unique_id=1457930992]
+z_index = 4
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

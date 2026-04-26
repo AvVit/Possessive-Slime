@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://coc4gbsd5ms8" path="res://Sprites/sky.jpg" id="8_77x7w"]
 [ext_resource type="Texture2D" uid="uid://bjlrdn82xbv6t" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/crack.png" id="8_xoyoh"]
 [ext_resource type="Script" uid="uid://b0c5e8shk56j3" path="res://Levels/cam.gd" id="12_rs4xw"]
+[ext_resource type="Theme" uid="uid://c380gwhcqslyw" path="res://resources/label.tres" id="13_2hkqn"]
+[ext_resource type="Texture2D" uid="uid://c7f7ctn6htoh0" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/star.png" id="13_lk57d"]
+[ext_resource type="PackedScene" uid="uid://b7xcp61ddpfsx" path="res://Levels/next_level.tscn" id="15_34erp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rf6l5"]
 radius = 18.027756
@@ -1137,8 +1140,11 @@ physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_77x7w")
 sources/4 = SubResource("TileSetAtlasSource_f4pg2")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4pg2"]
-size = Vector2(619, 369)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hkqn"]
+size = Vector2(9290, 1065)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34erp"]
+size = Vector2(1089, 6124)
 
 [node name="Level 1" unique_id=1475599819 node_paths=PackedStringArray("game_over_node") instance=ExtResource("1_n0qsc")]
 script = ExtResource("2_62b6n")
@@ -1251,24 +1257,57 @@ texture = ExtResource("8_77x7w")
 
 [node name="ColorRect3" type="ColorRect" parent="Sky" index="5" unique_id=1214035310]
 z_index = -2
-offset_left = -2800.0002
-offset_top = -3684.5076
-offset_right = 14298.594
-offset_bottom = 6233.8027
+offset_left = -9771.832
+offset_top = -11698.593
+offset_right = 24983.102
+offset_bottom = 11205.634
 color = Color(0.17254902, 0.5529412, 0.87058824, 1)
 
-[node name="next level" type="Area2D" parent="." index="11" unique_id=3471367]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="next level" index="0" unique_id=14204484]
-position = Vector2(3203.5, 207.5)
-shape = SubResource("RectangleShape2D_f4pg2")
-
-[node name="Camera2D" type="Camera2D" parent="." index="12" unique_id=952430395]
+[node name="Camera2D" type="Camera2D" parent="." index="11" unique_id=952430395]
 process_callback = 0
 script = ExtResource("12_rs4xw")
 
-[connection signal="body_entered" from="next level" to="." method="_on_next_level_body_entered"]
+[node name="UI" type="CanvasLayer" parent="." index="12" unique_id=793466099]
+
+[node name="StarsLabel" type="Label" parent="UI" index="0" unique_id=552004977]
+offset_left = 1078.0
+offset_top = 78.0
+offset_right = 1118.0
+offset_bottom = 101.0
+theme = ExtResource("13_2hkqn")
+theme_override_font_sizes/font_size = 29
+text = "0"
+horizontal_alignment = 1
+
+[node name="Star" type="Sprite2D" parent="UI" index="1" unique_id=480907173]
+position = Vector2(1098.0001, 42)
+scale = Vector2(0.34132418, 0.31447774)
+texture = ExtResource("13_lk57d")
+
+[node name="Death" type="Area2D" parent="." index="13" unique_id=1231886148]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death" index="0" unique_id=1374405502]
+position = Vector2(1975, 2724.5)
+shape = SubResource("RectangleShape2D_2hkqn")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Death" index="1" unique_id=477638763]
+position = Vector2(1956, -3492)
+shape = SubResource("RectangleShape2D_2hkqn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Death" index="2" unique_id=504808599]
+position = Vector2(7151.5, 228)
+shape = SubResource("RectangleShape2D_34erp")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Death" index="3" unique_id=1652535976]
+position = Vector2(-3221, 228)
+shape = SubResource("RectangleShape2D_34erp")
+
+[node name="Next Level" parent="." index="14" unique_id=1242413210 instance=ExtResource("15_34erp")]
+position = Vector2(2916, 1)
+
+[connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
+[connection signal="body_entered" from="Next Level" to="." method="_on_next_level_body_entered"]
 
 [editable path="Slime"]

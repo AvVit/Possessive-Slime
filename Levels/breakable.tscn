@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b7ojep253obdi" path="res://Levels/Scripts/breakable.gd" id="1_cur08"]
 [ext_resource type="Texture2D" uid="uid://g0q5vv84mokk" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/cracked.png" id="1_xklpf"]
+[ext_resource type="Theme" uid="uid://c380gwhcqslyw" path="res://resources/label.tres" id="3_pon27"]
+[ext_resource type="Texture2D" uid="uid://c7f7ctn6htoh0" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/star.png" id="4_jm5x5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62b6n"]
 size = Vector2(123, 377)
@@ -67,5 +69,20 @@ shape = SubResource("RectangleShape2D_62b6n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=567911688]
 libraries/ = SubResource("AnimationLibrary_pon27")
+
+[node name="StarsLabel" type="Label" parent="." unique_id=250678455]
+offset_left = 2834.0
+offset_top = -45.0
+offset_right = 2874.0
+offset_bottom = -5.0
+theme = ExtResource("3_pon27")
+theme_override_font_sizes/font_size = 29
+text = ": 1"
+horizontal_alignment = 1
+
+[node name="Star" type="Sprite2D" parent="." unique_id=789945825]
+position = Vector2(2788, -35)
+scale = Vector2(0.34132418, 0.31447774)
+texture = ExtResource("4_jm5x5")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

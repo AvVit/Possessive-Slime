@@ -2,6 +2,7 @@ extends Area2D
 class_name Weapon
 @export var enem : Enemy
 @export var base_damage : float = 10
+@export var posture_damage : float = 50
 
 @onready var damage : float = base_damage
 @onready var multi = enem.attack_multi

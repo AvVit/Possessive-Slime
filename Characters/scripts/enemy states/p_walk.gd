@@ -28,6 +28,6 @@ func process(delta: float) -> void:
 	enem_ref.velocity.x = input_dir * enem_ref.walk_speed
 
 	## run condition
-	if Input.is_action_just_pressed("run"):
+	if Input.is_action_pressed("run"):
 		transition_to.emit("p_run", self)
 		return
