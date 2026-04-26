@@ -9,8 +9,12 @@ class_name Enemy
 @onready var posses_sign = $"UI/Possess Sign"
 @onready var health_bar = $UI/health
 @onready var UI = $UI
+@onready var posture_bar : ProgressBar = $UI/posture
 
 @export var dir_change_speed := 1
+@export var posture := 0
+@export var max_posture := 100
+@export var posture_recovery_speed := 0.5
 
 var non_zero_dir := Vector2.RIGHT
 var is_dead = false
@@ -27,7 +31,10 @@ var attack_multi : float = 1
 signal yes_vulnerable(body : Node2D)
 signal no_vulnerable(body : Node2D)
 
+var time = 0
+
 func _ready() -> void:
+	posture_bar.max_value = max_posture
 	health_bar.max_value = health
 	hide_possess_sign()
 	vulnerable = false
@@ -45,6 +52,22 @@ func _ready() -> void:
 			player_ref = player
 
 func _process(delta: float) -> void:
+	posture = clampf(posture, 0, max_posture)
+	
+	time += delta
+	if(time > 1):
+		if(fsm.current_state.state_name != "parried"):
+			posture -= posture_recovery_speed
+		print("posture: ", posture, "\nrecovery: ", posture_recovery_speed * delta)
+		time = 0
+	if(posture >= max_posture):
+		posture = max_posture
+		vulnerable = true
+	else:
+		vulnerable = false
+
+	
+	posture_bar.value = posture
 	if non_zero_dir.x != dir.x and dir.x != 0:
 		non_zero_dir = dir
 	health_bar.value = health
@@ -62,7 +85,6 @@ func _process(delta: float) -> void:
 	if self.dir.x != 0 and fsm.current_state.state_name != "p_attack":
 		transform.x = sign(dir.x) * abs(transform.x)
 		UI.scale.x = transform.x.x
-
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("possessed") and body != self:
@@ -106,10 +128,11 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 		possess_in_attack_range = false
 
 
-func _on_parry(enem : Enemy):
+func _on_parry(enem : Enemy, parry_damage : float):
+	var params = {"parry_damage" : parry_damage}
 	print(self.name, ": parried")
 	if(enem == self):
-		fsm.force_transition("parried")
+		fsm.force_transition("parried", params)
 
 
 func show_possess_sign() -> void:
@@ -139,3 +162,6 @@ func take_damage(damage : float):
 	health -= damage
 	if health <=0:
 		health = 0
+
+func blocked():
+	anim_player.seek(0, true)

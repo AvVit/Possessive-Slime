@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bxeqi22sfb1mn" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/Tileset.png" id="7_0urlm"]
 [ext_resource type="Texture2D" uid="uid://coc4gbsd5ms8" path="res://Sprites/sky.jpg" id="8_77x7w"]
 [ext_resource type="Texture2D" uid="uid://bjlrdn82xbv6t" path="res://Sprites/craftpix-net-846754-free-green-zone-tileset-pixel-art/crack.png" id="8_xoyoh"]
+[ext_resource type="Script" uid="uid://b0c5e8shk56j3" path="res://Levels/cam.gd" id="12_rs4xw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rf6l5"]
 radius = 18.027756
@@ -1154,9 +1155,6 @@ collision_mask = 4
 [node name="DeadFace" parent="Slime/Polygons" parent_id_path=PackedInt32Array(479474688, 55325449) index="4" unique_id=2062090138]
 z_index = 1
 
-[node name="Camera2D" parent="Slime" index="6" unique_id=1533571527]
-zoom = Vector2(1, 1)
-
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." index="3" unique_id=1003542243]
 collision_layer = 4
 collision_mask = 4
@@ -1266,6 +1264,10 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="next level" index="0" unique_id=14204484]
 position = Vector2(3203.5, 207.5)
 shape = SubResource("RectangleShape2D_f4pg2")
+
+[node name="Camera2D" type="Camera2D" parent="." index="12" unique_id=952430395]
+process_callback = 0
+script = ExtResource("12_rs4xw")
 
 [connection signal="body_entered" from="next level" to="." method="_on_next_level_body_entered"]
 

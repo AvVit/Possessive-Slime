@@ -29,5 +29,5 @@ func process(delta: float) -> void:
 
 	## run condition
 	if Input.is_action_just_pressed("run"):
-		transition_to.emit("p_run", self)
+		transition_to.emit("p_dash", self)
 		return

@@ -1,10 +1,12 @@
 extends PossessedState
 
-var enter_vel : float
+var max_air_speed : float
+var input_dir : float
 
 func enter(params: Dictionary = {}):
 	super.enter()
-	enter_vel = enem_ref.velocity.x
+	max_air_speed = maxf(enem_ref.max_air_speed, abs(enem_ref.velocity.x))
+	input_dir = Input.get_axis("left", "right")
 	enem_ref.anim_player.play("fall")
 
 func process(delta : float):
@@ -13,19 +15,17 @@ func process(delta : float):
 	if(enem_ref.is_on_floor()):
 		transition_to.emit("p_idle", self)
 		return
-	var input_dir = Input.get_axis("left", "right")
-	if(enem_ref.dir.x != input_dir and input_dir != 0):
-		if(enem_ref.current_speed <= 0):
-			enem_ref.current_speed = 0
-			enem_ref.dir.x = -enem_ref.dir.x
-		else:
-			enem_ref.current_speed -= enem_ref.air_decel
+	input_dir = Input.get_axis("left", "right")
 
-	elif(enem_ref.dir.x == input_dir and input_dir != 0):
-		if(enem_ref.current_speed <= enem_ref.max_air_speed):
-			enem_ref.current_speed += enem_ref.air_decel
-	if(enter_vel != 0):
-		enem_ref.velocity.x += enem_ref.current_speed * enem_ref.non_zero_dir.x
-		enem_ref.velocity.x = clampf(enem_ref.velocity.x,-enem_ref.max_air_speed, enem_ref.max_air_speed)
-	else:
-		enem_ref.velocity.x = enem_ref.current_speed * enem_ref.non_zero_dir.x
+	if(sign(input_dir) != enem_ref.dir.x):
+		max_air_speed = enem_ref.max_air_speed
+
+func phyProcess(delta : float):
+	if enem_ref.velocity.x != 0:
+		enem_ref.dir.x = sign(enem_ref.velocity.x)
+
+	enem_ref.velocity.x = move_toward(
+		enem_ref.velocity.x,
+		max_air_speed * input_dir,
+		enem_ref.air_decel * delta
+	)

@@ -13,6 +13,7 @@ var vulnerable_poss : Dictionary[Node2D, bool] = {}
 var health := 60.0
 var poss_point : Node2D
 var posture : float = 0
+var non_zero_dir : Vector2 = Vector2.RIGHT
 
 @export var grav_value := 1
 @export var walk_speed := 400
@@ -22,6 +23,7 @@ var posture : float = 0
 @export var max_posture := 100
 @export var posture_recovery_speed :float= 5
 @export var recovery_time :float= 2
+@export var parry_damage :float = 100
 
 @onready var Shell := $Polygons/Shell
 @onready var NormalBody = $Polygons/Body
@@ -38,7 +40,7 @@ var posture : float = 0
 @onready var posture_bar = $posture
 @onready var recovery_timer = Timer.new()
 
-signal parry(enem : Enemy)
+signal parry(enem : Enemy, parry_damage : float)
 signal possessing
 signal player_dead
 
@@ -58,6 +60,8 @@ func _ready() -> void:
 			body.no_vulnerable.connect(on_poss_not_vulnerable)
 
 func _process(delta: float) -> void:
+	if(non_zero_dir.x != dir.x and dir.x != 0):
+		non_zero_dir.x = dir.x
 	posture = move_toward(posture, 0, delta * posture_recovery_speed)
 	posture_bar.value = posture
 	if posture > max_posture: posture = max_posture
@@ -80,13 +84,15 @@ func _process(delta: float) -> void:
 			possess_in_range.erase(body)
 
 	health_bar.value = health
-	if(!is_on_floor()): velocity.y += gravity
+
 
 	if(health <= 0 && FSM.current_state.state_name != "dead"):
 		die()
 		player_dead.emit()
 
 func _physics_process(delta: float) -> void:
+	if(!is_on_floor()): 
+		velocity.y += gravity * delta
 	move_and_slide()
 
 func harden():

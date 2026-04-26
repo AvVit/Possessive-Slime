@@ -1,8 +1,13 @@
 extends PlayerStates
 
+var max_air_speed : float
+var input_dir
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	max_air_speed = maxf(player.max_air_speed, abs(player.velocity.x))
+	input_dir = Input.get_axis("left", "right")
+
 	if(player.is_on_floor()):
 		player.velocity.y = -(player.jump_force)
 
@@ -14,18 +19,14 @@ func process(delta : float):
 		transition_to.emit("fall", self)
 		return
 	
-	var input_dir = Input.get_axis("left", "right")
+	input_dir = Input.get_axis("left", "right")
 
-	if(player.dir.x != input_dir):
-		if(player.current_speed <= 0):
-			player.current_speed = 0
-			player.dir.x = -player.dir.x
-		else:
-			player.current_speed -= player.air_decel
+	if(sign(input_dir) != player.dir.x):
+		max_air_speed = player.max_air_speed
 
-	elif(input_dir == player.dir.x):
-		if(player.current_speed <= player.max_air_speed):
-			player.current_speed += player.air_decel
-	
-	player.velocity.x += player.current_speed * player.dir.x
-	player.velocity.x = clampf(player.velocity.x,-player.max_air_speed, player.max_air_speed)
+func phyProcess(delta : float):
+	player.velocity.x = move_toward(
+		player.velocity.x,
+		max_air_speed * input_dir,
+		player.air_decel * delta
+	)

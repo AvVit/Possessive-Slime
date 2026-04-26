@@ -21,7 +21,7 @@ func enter(params: Dictionary = {}):
 					block_or_parry = "hurt"
 	if(block_or_parry == "parry"):
 		for weapon in weapon_areas:
-			player.parry.emit(weapon.owner)
+			player.parry.emit(weapon.owner, player.parry_damage)
 	player.parryLabel.text = block_or_parry
 	player.current_speed = 0
 	player.harden()
@@ -44,4 +44,4 @@ func request_transition(state_name : String, params : Dictionary = {}):
 func _on_weapon_entered(area : Area2D):
 	if(block_or_parry != "parry" and area is Weapon):
 		player.posture += player.posture_recovery_speed * 10
-		area.enem.anim_player.seek(0, true)
+		area.enem.blocked()

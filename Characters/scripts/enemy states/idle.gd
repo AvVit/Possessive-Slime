@@ -27,10 +27,10 @@ func exit():
 
 func process(delta : float):
 	if(enem_ref.possess_visible):
-		transition_to.emit("pos_chase", self)
+		transition_to.emit("alert", self)
 		return
 	if(enem_ref.player_visible):
-		transition_to.emit("chase", self)
+		transition_to.emit("alert", self)
 		return
 	if(enem_ref.velocity.y > 0):
 		transition_to.emit("fall", self)

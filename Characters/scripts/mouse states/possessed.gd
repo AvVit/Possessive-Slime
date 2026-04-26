@@ -6,12 +6,14 @@ func enter(params: Dictionary = {}):
 	player.set_collision_mask_value(1, false)
 	player.possessed_enemy.set_collision_mask_value(1, false)
 	player.health_bar.hide()
+	player.posture_bar.hide()
 
 func exit():
 	super.exit()
 	player.set_collision_layer_value(1, true)
 	player.set_collision_mask_value(1, true)
 	player.possessed_enemy.set_collision_mask_value(1, true)
+	player.posture_bar.show()
 	player.health_bar.show()
 
 func process(delta : float):

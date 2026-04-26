@@ -3,21 +3,21 @@ class_name Possessable
 
 #Possessable should be in layer 2
 
-@export var gravity = 1
 @export var possess_point : Marker2D
-
-@export var gravValue = 1
+@export var gravValue = 3000
 @export var walk_speed = 300
-@export var run_speed = 700
-@export var air_decel = 10
-@export var max_air_speed = 200
-@export var jump_force = 1000
+@export var run_speed = 500
+@export var air_decel = 10000
+@export var max_air_speed = 300
+@export var jump_force = 1200
 @export var health = 100
 @export var dir = Vector2.RIGHT
+@export var vulnerable = false
+
+@onready var gravity = gravValue
 
 var is_possessed = false
 var current_speed = 0
-var vulnerable = false
 signal waiting_possession(body : Possessable)
 
 func _enter_tree() -> void:
@@ -29,10 +29,11 @@ func _enter_tree() -> void:
 func _process(delta: float) -> void:
 	if(is_possessed):
 		hide_possess_sign()
-	if(!is_on_floor()):
-		velocity.y += gravity
+
 
 func _physics_process(delta: float) -> void:
+	if(!is_on_floor()):
+		velocity.y += gravity * delta
 	move_and_slide()
 
 func show_possess_sign() -> void:

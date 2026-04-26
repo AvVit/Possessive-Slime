@@ -16,6 +16,11 @@ func enter(msg := {}):
 
 
 func process(delta : float):
+	if Input.is_action_just_pressed("run"):
+		enem_ref.velocity.y = 0
+		transition_to.emit("p_dash", self)
+		return
+
 	if Input.is_action_just_pressed("attack"):
 		transition_to.emit("p_attack", self)
 	if(enem_ref.is_on_floor() and enem_ref.velocity.y == 0):

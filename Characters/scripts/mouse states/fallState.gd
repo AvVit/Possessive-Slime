@@ -1,29 +1,27 @@
 extends PlayerStates
 
-var enter_vel : float
+var max_air_speed : float
+var input_dir : float
 
 func enter(params: Dictionary = {}):
 	super.enter()
-	enter_vel = player.velocity.x
+	max_air_speed = maxf(player.max_air_speed, abs(player.velocity.x))
+	input_dir = Input.get_axis("left", "right")
+	if player.is_on_floor():
+		player.velocity.y = -player.jump_force
 
-func process(delta : float):
-	if(player.is_on_floor()):
+func process(delta: float):
+	if player.is_on_floor():
 		transition_to.emit("idle", self)
 		return
 
-	if((Input.is_action_pressed("left") and player.dir.x == 1) or (Input.is_action_pressed("right") and player.dir.x == -1) ):
-		if(player.current_speed <= 0):
-			player.current_speed = 0
-			player.dir.x = -player.dir.x
-		else:
-			player.current_speed -= player.air_decel
+	input_dir = Input.get_axis("left", "right")
+	if(sign(input_dir) != player.dir.x):
+		max_air_speed = player.max_air_speed
 
-	elif((Input.is_action_pressed("left") and player.dir.x == -1) or (Input.is_action_pressed("right") and player.dir.x == 1)):
-		if(player.current_speed <= player.max_air_speed):
-			player.current_speed += player.air_decel
-	
-	if(enter_vel != 0):
-		player.velocity.x += player.current_speed * player.dir.x
-		player.velocity.x = clampf(player.velocity.x,-player.max_air_speed, player.max_air_speed)
-	else:
-		player.velocity.x = player.current_speed * player.dir.x
+func phyProcess(delta: float):
+	player.velocity.x = move_toward(
+		player.velocity.x,
+		max_air_speed * input_dir,
+		player.air_decel * delta
+	)

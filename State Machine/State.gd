@@ -28,4 +28,7 @@ func request_transition(state_name : String, params : Dictionary = {}):
 		transition_to_with_params.emit(state_name, self, params)
 
 func force_transition(state_name : String, params : Dictionary = {}): # Don't override
-	transition_to.emit(state_name, self)
+	if params:
+		transition_to_with_params.emit(state_name, self, params)
+	else:
+		transition_to.emit(state_name, self)

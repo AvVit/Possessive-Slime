@@ -8,12 +8,15 @@ func enter(params: Dictionary = {}):
 	enem_ref.current_speed = 0
 	enem_ref.anim_player.play("parried")
 	enem_ref.anim_player.animation_finished.connect(_on_stun_finished)
-	enem_ref.vulnerable = true
+	if(params.has("parry_damage")):
+		enem_ref.posture += params["parry_damage"]
+	else:
+		print(self.name, ": No parry damage")
 	#player_ref = get_tree().get_first_node_in_group("player")
 
 func exit():
 	super.exit()
-	enem_ref.vulnerable = false
+	#enem_ref.posture = 0
 	enem_ref.anim_player.animation_finished.disconnect(_on_stun_finished)
 
 func process(delta : float):
