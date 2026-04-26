@@ -6,7 +6,12 @@ func _ready():
 
 func enter(msg := {}):
 	super.enter()
+	enem_ref.audio.stream = enem_ref.walk_sound
+	enem_ref.audio.play()
 	enem_ref.anim_player.play("walk")
+
+func exit():
+	enem_ref.audio.stop()
 
 func process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):

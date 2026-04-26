@@ -55,6 +55,8 @@ func _on_attack_finished(attack : String):
 
 func request_transition(state_name : String, params : Dictionary = {}):
 	if(state_name == "hurt"):
+		enem_ref.audio.stream = enem_ref.bonk
+		enem_ref.audio.play()
 		if params.has("damage"):
 			enem_ref.take_damage(params["damage"])
 			var pos = enem_ref.anim_player.current_animation_position

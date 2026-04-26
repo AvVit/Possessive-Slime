@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://baglkk011v38k"
+path="res://.godot/imported/Whoosh Sounds effects No copyright.wav-e0ee1d6c0d1bad8954d647a80b20e06e.sample"
+
+[deps]
+
+source_file="res://Audio/Whoosh Sounds effects No copyright.wav"
+dest_files=["res://.godot/imported/Whoosh Sounds effects No copyright.wav-e0ee1d6c0d1bad8954d647a80b20e06e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

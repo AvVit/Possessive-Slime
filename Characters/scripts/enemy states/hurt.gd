@@ -3,7 +3,8 @@ extends EnemyState
 
 func enter(params: Dictionary = {}):
 	super.enter()
-
+	enem_ref.audio.stream = enem_ref.bonk
+	enem_ref.audio.play()
 	var damage = 0
 	if params.is_empty():
 		print(self.name, ": EMPTY PARAMS")

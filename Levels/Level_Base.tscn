@@ -12,3 +12,6 @@ metadata/_custom_type_script = "uid://dshpg6mgojxf6"
 position = Vector2(-579, 684)
 
 [node name="mouse" type="Marker2D" parent="spawn_points" unique_id=9776545]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1667689796]
+volume_db = -18.108

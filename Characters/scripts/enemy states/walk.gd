@@ -6,8 +6,9 @@ func _ready() -> void:
 	add_child(timer)
 
 func enter(params: Dictionary = {}):
-	
 	super.enter()
+	enem_ref.audio.stream = enem_ref.walk_sound
+	enem_ref.audio.play()
 	enem_ref.current_speed = enem_ref.walk_speed
 	enem_ref.anim_player.play("walk")
 
@@ -19,6 +20,7 @@ func enter(params: Dictionary = {}):
 
 func exit():
 	super.exit()
+	enem_ref.audio.stop()
 	disable_stuff()
 
 func process(delta : float):

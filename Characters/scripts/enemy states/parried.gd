@@ -5,6 +5,8 @@ extends EnemyState
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	enem_ref.audio.stream = enem_ref.parry_sound
+	enem_ref.audio.play()
 	enem_ref.current_speed = 0
 	enem_ref.anim_player.play("parried")
 	enem_ref.anim_player.animation_finished.connect(_on_stun_finished)

@@ -40,6 +40,8 @@ var non_zero_dir : Vector2 = Vector2.RIGHT
 @onready var possessArea = $PossessionRange
 @onready var posture_bar = $posture
 @onready var recovery_timer = Timer.new()
+@onready var audio = $AudioStreamPlayer2D
+@onready var bonk = preload("res://Audio/Bonk Sound Effect.wav")
 
 signal parry(enem : Enemy, parry_damage : float)
 signal possessing

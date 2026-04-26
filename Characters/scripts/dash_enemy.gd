@@ -3,6 +3,7 @@ extends Enemy
 @export var dash_speed : float = 1000
 @export var max_dash_dist : float = 500
 @onready var attack_col = $"Dash Range/CollisionShape2D3"
+@onready var dash_sound = preload("res://Audio/whoosh2.wav")
 
 var player_in_dash_range := false
 var possess_in_dash_range := false
@@ -15,6 +16,8 @@ func _ready() -> void:
 	vulnerable = true
 
 func blocked():
+	audio.stream = blonk
+	audio.play()
 	if fsm.current_state.state_name == "attack":
 		anim_player.seek(0,true)
 		anim_player.play("attack_charge")

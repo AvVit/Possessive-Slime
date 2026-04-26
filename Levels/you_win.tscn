@@ -34,4 +34,6 @@ theme = ExtResource("2_biuiu")
 theme_override_font_sizes/font_size = 53
 text = "Replay"
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=399936787]
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

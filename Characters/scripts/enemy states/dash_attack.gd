@@ -81,6 +81,8 @@ func _on_attack_finished(attack : String):
 			dash_time = minf(enem_ref.max_dash_dist, abs(dist)) / enem_ref.dash_speed
 		dash_timer.wait_time = dash_time
 		dash_timer.start()
+		enem_ref.audio.stream = enem_ref.dash_sound
+		enem_ref.audio.play()
 		print("dash dist: ",  minf(enem_ref.max_dash_dist, abs(dist)), " / speed: ", enem_ref.dash_speed, " = dash_time: ", dash_time)
 
 	if(get_parent().current_state == self and (attack == "attack_discharge" or attack == "attack_hurt")):
@@ -97,6 +99,8 @@ func _on_attack_finished(attack : String):
 
 func request_transition(state_name : String, params : Dictionary = {}):
 	if(state_name == "hurt"):
+		enem_ref.audio.stream = enem_ref.bonk
+		enem_ref.audio.play()
 		if params.has("damage"):
 			enem_ref.take_damage(params["damage"])
 			var pos = enem_ref.anim_player.current_animation_position

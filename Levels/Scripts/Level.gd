@@ -5,6 +5,7 @@ class_name Level
 @export var default_spawn : Marker2D
 @export var game_over_node : Node2D
 @export var player_ref : Slime
+@onready var audio = $AudioStreamPlayer2D
 var stars = 0
 
 func _ready() -> void:

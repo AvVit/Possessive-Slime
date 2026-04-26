@@ -1544,6 +1544,8 @@ theme_override_font_sizes/font_size = 14
 value = 100.0
 show_percentage = false
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1644267340]
+
 [connection signal="body_exited" from="Alert Area" to="." method="_on_alert_area_body_exited"]
 [connection signal="area_entered" from="Hurt Area" to="." method="_on_hurt_area_area_entered"]
 [connection signal="body_entered" from="Vision Area" to="." method="_on_vision_area_body_entered"]

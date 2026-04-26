@@ -7,6 +7,8 @@ func _ready() -> void:
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	player.audio.stream = player.bonk
+	player.audio.play()
 	var damage = 0
 	if params.is_empty():
 		print(self.name, ": EMPTY PARAMS")

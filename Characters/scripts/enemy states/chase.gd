@@ -5,6 +5,8 @@ var diff
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	enem_ref.audio.stream = enem_ref.run_sound
+	enem_ref.audio.play()
 	enem_ref.dir.x = 0
 	enem_ref.current_speed = enem_ref.run_speed
 	enem_ref.anim_player.play("run")
@@ -13,6 +15,11 @@ func enter(params: Dictionary = {}):
 		diff = player_ref.global_position.x - enem_ref.global_position.x
 		if diff != 0:
 			enem_ref.dir.x = sign(diff) * 1
+
+func exit():
+	super.exit()
+	enem_ref.audio.stop()
+
 
 func process(delta : float):
 	if(enem_ref.player_in_attack_range):

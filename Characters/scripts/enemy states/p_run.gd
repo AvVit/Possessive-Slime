@@ -6,6 +6,8 @@ func _ready():
 
 func enter(msg := {}):
 	super.enter()
+	enem_ref.audio.stream = enem_ref.run_sound
+	enem_ref.audio.play()
 	enem_ref.anim_player.play("run")
 
 func process(delta: float) -> void:

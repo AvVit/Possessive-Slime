@@ -10,6 +10,13 @@ class_name Enemy
 @onready var health_bar = $UI/health
 @onready var UI = $UI
 @onready var posture_bar : ProgressBar = $UI/posture
+@onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var blonk = preload("res://Audio/block.wav")
+@onready var bonk = preload("res://Audio/Bonk Sound Effect.wav")
+@onready var parry_sound = preload("res://Audio/parry.wav")
+@onready var swing_sound = preload("res://Audio/whoosh1.wav")
+@onready var walk_sound = preload("res://Audio/Sound Effects - Footsteps.wav")
+@onready var run_sound = preload("res://Audio/run.wav")
 
 @export var num_stars := 1
 @export var dir_change_speed := 1
@@ -173,4 +180,6 @@ func take_damage(damage : float):
 		health = 0
 
 func blocked():
+	audio.stream = blonk
+	audio.play()
 	anim_player.seek(0, true)
