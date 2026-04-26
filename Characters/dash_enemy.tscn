@@ -53,6 +53,9 @@ size = Vector2(76, 27)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rq3xi"]
 size = Vector2(94, 60)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6a58"]
+size = Vector2(94, 60)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04wy3"]
 size = Vector2(47, 14)
 
@@ -926,6 +929,94 @@ tracks/6/keys = {
 "values": [Vector2(0, -48)]
 }
 
+[sub_resource type="Animation" id="Animation_3ci1m"]
+resource_name = "dash"
+length = 0.26666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.40840703]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.06666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.88, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("poss_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -48), Vector2(0, -48)]
+}
+
 [sub_resource type="Animation" id="Animation_ff3nx"]
 resource_name = "dead"
 length = 1.2
@@ -1721,6 +1812,7 @@ _data = {
 &"attack_discharge": SubResource("Animation_oqrqs"),
 &"attack_discharge_hurt": SubResource("Animation_hngvq"),
 &"attack_hurt": SubResource("Animation_a28xf"),
+&"dash": SubResource("Animation_3ci1m"),
 &"dead": SubResource("Animation_ff3nx"),
 &"fall": SubResource("Animation_s3edj"),
 &"hurt": SubResource("Animation_ilkdp"),
@@ -1741,6 +1833,7 @@ max_posture = 200
 posture_recovery_speed = 3.0
 star = ExtResource("2_i6a58")
 possess_point = NodePath("poss_point")
+health = 200
 metadata/_custom_type_script = "uid://chklni26vsuh2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963622552]
@@ -1827,13 +1920,21 @@ scale = Vector2(1.1481683, 1.0625)
 color = Color(0.17142007, 0.06275481, 0.27235785, 1)
 polygon = PackedVector2Array(-1, -38.735, -5.445, -37.694, -9, -35.54, -12.269, -32.208, -13.853, -29.933, -15.84, -25.882, -16.926, -20.235, -17.196, -16.471, -16.94, -13.647, -16.279, -11.765, -14.487, -9.291, -12.774284, -7.9999967, -12.774284, -6.117644, -13.645237, -3.2941148, -14.51619, 3.29412, -14.51619, 12.705884, -14.51619, 22.117647, -12.774284, 28.705883, -10.1614275, 35.29412, -8, 40, 15, 40, 15.096193, 3.29412, 15.096193, -1.411762, 12.4833355, -10.823526, 15.967146, -13.647056, 17.70905, -16.470585, 17.70905, -20.23529, 13, -34, 2.155, -38.5)
 
-[node name="Attack Range" type="Area2D" parent="." unique_id=201467699]
+[node name="Dash Range" type="Area2D" parent="." unique_id=201467699]
 collision_mask = 5
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Attack Range" unique_id=32048838]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Dash Range" unique_id=32048838]
 position = Vector2(48, -9)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_rq3xi")
+
+[node name="Attack Range" type="Area2D" parent="." unique_id=103884864]
+collision_mask = 5
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Attack Range" unique_id=645239195]
+position = Vector2(48, -9)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_i6a58")
 
 [node name="weapon" type="Area2D" parent="." unique_id=1930417615 node_paths=PackedStringArray("enem")]
 collision_layer = 4
@@ -1994,5 +2095,7 @@ show_percentage = false
 [connection signal="body_exited" from="Alert Area" to="." method="_on_alert_area_body_exited"]
 [connection signal="area_entered" from="Hurt Area" to="." method="_on_hurt_area_area_entered"]
 [connection signal="body_entered" from="Vision Area" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_entered" from="Dash Range" to="." method="_on_dash_range_body_entered"]
+[connection signal="body_exited" from="Dash Range" to="." method="_on_dash_range_body_exited"]
 [connection signal="body_entered" from="Attack Range" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="Attack Range" to="." method="_on_attack_range_body_exited"]

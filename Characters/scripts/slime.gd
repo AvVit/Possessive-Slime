@@ -10,7 +10,7 @@ var current_speed := 0
 var is_dead := false
 var possess_in_range : Dictionary[Node2D, bool] = {}
 var vulnerable_poss : Dictionary[Node2D, bool] = {}
-var health := 60.0
+var health := 40.0
 var poss_point : Node2D
 var posture : float = 0
 var non_zero_dir : Vector2 = Vector2.RIGHT
@@ -29,6 +29,7 @@ var non_zero_dir : Vector2 = Vector2.RIGHT
 @onready var NormalBody = $Polygons/Body
 @onready var HurtBody = $Polygons/HurtBody
 @onready var normal_face = $Polygons/Face
+@onready var white_face = $Polygons/WhiteFace
 @onready var dead_face = $Polygons/DeadFace
 @onready var FSM = $SlimeFSM
 @onready var gravity := grav_value
@@ -97,9 +98,11 @@ func _physics_process(delta: float) -> void:
 
 func harden():
 	Shell.show()
+	white_face.show()
 
 func soften():
 	Shell.hide()
+	white_face.hide()
 	#ShellCol.disabled = true
 
 func die():

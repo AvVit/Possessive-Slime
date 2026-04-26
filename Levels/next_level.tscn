@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bam3x6i4bvenh" path="res://Levels/Scripts/portal.gd" id="1_yxebn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4pg2"]
-size = Vector2(286, 369)
+size = Vector2(360, 369)
 
 [sub_resource type="Animation" id="Animation_q7avf"]
 length = 0.001
@@ -50,7 +50,7 @@ collision_mask = 4
 script = ExtResource("1_yxebn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=353950200]
-position = Vector2(306, 182)
+position = Vector2(269, 182)
 shape = SubResource("RectangleShape2D_f4pg2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=804651746]

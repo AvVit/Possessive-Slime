@@ -1197,7 +1197,7 @@ metadata/_edit_group_ = true
 [node name="PossessionRange" parent="Slime" index="3" unique_id=455040854]
 collision_mask = 4
 
-[node name="DeadFace" parent="Slime/Polygons" parent_id_path=PackedInt32Array(479474688, 55325449) index="4" unique_id=2062090138]
+[node name="DeadFace" parent="Slime/Polygons" parent_id_path=PackedInt32Array(479474688, 55325449) index="5" unique_id=2062090138]
 z_index = 1
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." index="3" unique_id=1003542243]

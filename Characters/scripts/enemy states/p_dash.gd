@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func enter(params: Dictionary = {}) -> void:
 	super.enter()
+	enem_ref.anim_player.play("dash")
 	dash = true
 	dash_timer.wait_time = dash_dist/enem_ref.dash_speed
 	dash_timer.start()

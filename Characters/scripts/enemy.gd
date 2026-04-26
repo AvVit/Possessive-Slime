@@ -113,14 +113,18 @@ func _on_alert_area_body_exited(body: Node2D) -> void:
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		if body.is_dead: return
-		print(name, ": Player in attack range")
-		player_in_attack_range = true
-	elif body.is_in_group("possessed") and body != self:
+	if body.is_in_group("possessed") and body != self:
 		if body.is_dead: return
 		print(name, ": Possessed enemy in attack range")
 		possess_in_attack_range = true
+		player_in_attack_range = false
+		
+	elif body.is_in_group("player"):
+		if body.is_dead: return
+		print(name, ": Player in attack range")
+		player_in_attack_range = true
+		possess_in_attack_range = false
+		
 
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
