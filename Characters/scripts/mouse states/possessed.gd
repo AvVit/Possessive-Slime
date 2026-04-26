@@ -2,17 +2,17 @@ extends PlayerStates
 
 func enter(params: Dictionary = {}):
 	super.enter()
-	#player.set_collision_layer_value(1, false)
+	player.set_collision_layer_value(1, false)
 	player.set_collision_mask_value(1, false)
 	player.possessed_enemy.set_collision_mask_value(1, false)
 	player.health_bar.hide()
 
 func exit():
 	super.exit()
-	#player.set_collision_layer_value(1, true)
+	player.set_collision_layer_value(1, true)
 	player.set_collision_mask_value(1, true)
 	player.possessed_enemy.set_collision_mask_value(1, true)
-	player.health_bar.hide()
+	player.health_bar.show()
 
 func process(delta : float):
 	player.velocity.x = 0

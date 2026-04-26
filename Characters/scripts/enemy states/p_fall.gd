@@ -1,9 +1,10 @@
 extends PossessedState
 
-
+var enter_vel : float
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	enter_vel = enem_ref.velocity.x
 	enem_ref.anim_player.play("fall")
 
 func process(delta : float):
@@ -23,5 +24,8 @@ func process(delta : float):
 	elif(enem_ref.dir.x == input_dir and input_dir != 0):
 		if(enem_ref.current_speed <= enem_ref.max_air_speed):
 			enem_ref.current_speed += enem_ref.air_decel
-	
-	enem_ref.velocity.x = enem_ref.current_speed * enem_ref.dir.x
+	if(enter_vel != 0):
+		enem_ref.velocity.x += enem_ref.current_speed * enem_ref.non_zero_dir.x
+		enem_ref.velocity.x = clampf(enem_ref.velocity.x,-enem_ref.max_air_speed, enem_ref.max_air_speed)
+	else:
+		enem_ref.velocity.x = enem_ref.current_speed * enem_ref.non_zero_dir.x

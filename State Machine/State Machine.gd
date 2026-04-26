@@ -152,8 +152,6 @@ func request_transition(state_name: String, params : Dictionary = {}) -> void:
 		print(fsm_name, "State Machine says:: ", state_name, " is blocked. Cannot enter")
 		return
 
-	#force_mode = true
-	#is_transitioning = true
 
 	print(fsm_name, "State Machine says: Requesting Transition from: ", current_state, "to: ", state_name)
 
@@ -178,3 +176,18 @@ func block_state(state_name : String) -> void:
 
 	state.can_enter = false
 	print(fsm_name, "State Machine says: ", state_name, " Blocked ")
+
+func unblock_state(state_name : String) -> void:
+	var state : State
+	if(states.has(state_name)): 
+		state = states[state_name]
+	else:
+		print(fsm_name, "State Machine says:: Invalid state: ", state_name)
+		return
+
+	state.can_enter = true
+	print(fsm_name, "State Machine says: ", state_name, " Unblocked ")
+
+
+func get_state(state_name: String) -> State:
+	return states[state_name] if states.has(state_name) else null

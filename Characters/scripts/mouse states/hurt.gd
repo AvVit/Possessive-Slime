@@ -7,9 +7,15 @@ func _ready() -> void:
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	var damage = 0
+	if params.is_empty():
+		print(self.name, ": EMPTY PARAMS")
+	elif params.has("damage"):
+		damage = params["damage"]
+		print("damage: ", damage, "\nhealth: ", player.health)
 	player.current_speed = 0
 	player.HurtBody.show()
-	player.take_damage(10)
+	player.take_damage(damage)
 	if not timer.timeout.is_connected(_on_hurt_timeout):
 		timer.timeout.connect(_on_hurt_timeout)
 	timer.wait_time = 0.5

@@ -25,6 +25,9 @@ func process(delta : float):
 	if(enem_ref.player_visible):
 		transition_to.emit("chase", self)
 		return
+	if(enem_ref.possess_visible):
+		transition_to.emit("pos_chase", self)
+		return
 	if(enem_ref.velocity.y < 0):
 		transition_to.emit("fall", self)
 		return

@@ -1,5 +1,10 @@
 extends PlayerStates
 
+var enter_vel : float
+
+func enter(params: Dictionary = {}):
+	super.enter()
+	enter_vel = player.velocity.x
 
 func process(delta : float):
 	if(player.is_on_floor()):
@@ -17,4 +22,8 @@ func process(delta : float):
 		if(player.current_speed <= player.max_air_speed):
 			player.current_speed += player.air_decel
 	
-	player.velocity.x = player.current_speed * player.dir.x
+	if(enter_vel != 0):
+		player.velocity.x += player.current_speed * player.dir.x
+		player.velocity.x = clampf(player.velocity.x,-player.max_air_speed, player.max_air_speed)
+	else:
+		player.velocity.x = player.current_speed * player.dir.x

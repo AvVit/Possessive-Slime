@@ -25,6 +25,9 @@ func _on_stun_finished(parry : String):
 		if(enem_ref.player_visible and enem_ref.player_in_attack_range):
 			transition_to.emit("attack", self)
 			return
+		elif(enem_ref.possess_visible):
+			transition_to.emit("pos_chase", self)
+			return
 		elif(enem_ref.player_visible):
 			transition_to.emit("chase", self)
 			#print(enem_ref.name, ": Player out of attack range.")

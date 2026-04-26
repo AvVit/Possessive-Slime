@@ -10,15 +10,18 @@ var current_speed := 0
 var is_dead := false
 var possess_in_range : Dictionary[Node2D, bool] = {}
 var vulnerable_poss : Dictionary[Node2D, bool] = {}
-var health := 20.0
+var health := 60.0
 var poss_point : Node2D
+var posture : float = 0
 
 @export var grav_value := 1
 @export var walk_speed := 400
 @export var air_decel := 10
 @export var max_air_speed := 200
 @export var jump_force := 1100.0
-
+@export var max_posture := 100
+@export var posture_recovery_speed :float= 5
+@export var recovery_time :float= 2
 
 @onready var Shell := $Polygons/Shell
 @onready var NormalBody = $Polygons/Body
@@ -32,12 +35,20 @@ var poss_point : Node2D
 @onready var ParryArea = $ParryArea
 @onready var parryLabel = $"block or parry"
 @onready var possessArea = $PossessionRange
+@onready var posture_bar = $posture
+@onready var recovery_timer = Timer.new()
 
 signal parry(enem : Enemy)
 signal possessing
 signal player_dead
 
 func _ready() -> void:
+	recovery_timer.wait_time = recovery_time
+	recovery_timer.one_shot = false
+	recovery_timer.timeout.connect(unblock_block)
+	add_child(recovery_timer)
+
+	health_bar.max_value = health
 	for body in get_tree().get_nodes_in_group("possessable"):
 		if body.has_signal("yes_vulnerable"):
 			print("YES_VULNERABLE CONNNECTED")
@@ -47,6 +58,15 @@ func _ready() -> void:
 			body.no_vulnerable.connect(on_poss_not_vulnerable)
 
 func _process(delta: float) -> void:
+	posture = move_toward(posture, 0, delta * posture_recovery_speed)
+	posture_bar.value = posture
+	if posture > max_posture: posture = max_posture
+	if posture == max_posture:
+		FSM.block_state("block")
+		if FSM.current_state.state_name == "block":
+			FSM.force_transition("idle")
+			recovery_timer.start()
+
 	if Input.is_action_just_pressed("possess"):
 		if !possess_in_range.is_empty():
 			possess(possess_in_range.keys()[0])
@@ -61,10 +81,13 @@ func _process(delta: float) -> void:
 
 	health_bar.value = health
 	if(!is_on_floor()): velocity.y += gravity
-	move_and_slide()
+
 	if(health <= 0 && FSM.current_state.state_name != "dead"):
 		die()
 		player_dead.emit()
+
+func _physics_process(delta: float) -> void:
+	move_and_slide()
 
 func harden():
 	Shell.show()
@@ -148,8 +171,7 @@ func _on_hurt_area_area_entered(area: Area2D) -> void:
 	if area is Weapon:
 		print("OUCH : ", area.damage)
 		#take_damage(area.damage)
-		var params : Dictionary
-		params["damage"] = area.damage
+		var params : Dictionary = {"damage" : area.damage}
 		FSM.request_transition("hurt", params)
 	else:
 		print("OUCH : ", area)
@@ -202,6 +224,7 @@ func possess(target: Possessable) -> void:
 		poss_point = enemy
 	
 	enemy.is_possessed = true
+	enemy.add_to_group("possessed")
 	# disable slime control (optional but recommended)
 	set_physics_process(false)
 	set_process(false)
@@ -229,6 +252,7 @@ func unpossess(enemy: Enemy) -> void:
 	# place slime near enemy
 	global_position = enemy.global_position + Vector2(40, 0)
 	enemy.is_possessed = false
+	enemy.remove_from_group("possessed")
 	# deactivate possessed states
 	_deactivate_possessed_states(enemy)
 
@@ -254,3 +278,7 @@ func _deactivate_possessed_states(enemy: Enemy) -> void:
 		if child is Node and child.is_in_group("p_states"):
 			child.set_process(false)
 			child.set_physics_process(false)
+
+
+func unblock_block():
+	FSM.unblock_state("block")

@@ -7,7 +7,7 @@ func enter(params: Dictionary = {}):
 		player.velocity.y = -(player.jump_force)
 
 func process(delta : float):
-	if(player.is_on_floor()):
+	if(player.is_on_floor() and player.velocity.y == 0):
 		transition_to.emit("idle", self)
 		return
 	if(player.velocity.y > 0):
@@ -27,4 +27,5 @@ func process(delta : float):
 		if(player.current_speed <= player.max_air_speed):
 			player.current_speed += player.air_decel
 	
-	player.velocity.x = player.current_speed * player.dir.x
+	player.velocity.x += player.current_speed * player.dir.x
+	player.velocity.x = clampf(player.velocity.x,-player.max_air_speed, player.max_air_speed)

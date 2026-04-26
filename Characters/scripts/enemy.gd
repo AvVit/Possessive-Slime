@@ -6,24 +6,29 @@ class_name Enemy
 @onready var floor_detect : Area2D = $"Floor Detection"
 @onready var wall_detect : Area2D = $"Wall Detection"
 @onready var fsm : StateMachine = $EnemyFSM
-@onready var posses_sign = $"Possess Sign"
+@onready var posses_sign = $"UI/Possess Sign"
 @onready var health_bar = $UI/health
 @onready var UI = $UI
 
 @export var dir_change_speed := 1
 
-
+var non_zero_dir := Vector2.RIGHT
+var is_dead = false
 var scale_x_right = self.scale.x
 var scale_x_left = -self.scale.x
 var roam_timer : Timer
 var player_visible := false
 var player_in_attack_range := false
+var possess_visible := false
+var possess_in_attack_range := false
 var player_ref : Slime
+var attack_multi : float = 1
 
 signal yes_vulnerable(body : Node2D)
 signal no_vulnerable(body : Node2D)
 
 func _ready() -> void:
+	health_bar.max_value = health
 	hide_possess_sign()
 	vulnerable = false
 	roam_timer = Timer.new()
@@ -40,6 +45,8 @@ func _ready() -> void:
 			player_ref = player
 
 func _process(delta: float) -> void:
+	if non_zero_dir.x != dir.x and dir.x != 0:
+		non_zero_dir = dir
 	health_bar.value = health
 	if health <= 0 and fsm.current_state.state_name != "dead":
 		fsm.force_transition("dead")
@@ -52,13 +59,19 @@ func _process(delta: float) -> void:
 		elif !vulnerable and player_ref.vulnerable_poss.get(self):
 			no_vulnerable.emit(self)
 	super._process(delta)
-	if self.dir.x != 0:
+	if self.dir.x != 0 and fsm.current_state.state_name != "p_attack":
 		transform.x = sign(dir.x) * abs(transform.x)
 		UI.scale.x = transform.x.x
 
 
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("possessed") and body != self:
+		if body.is_dead: return
+		print(name, ": Possessed enemy seen")
+		#fsm.request_transition("pos_chase")
+		possess_visible = true
+
+	elif body.is_in_group("player"):
 		if body.is_dead: return
 		print(name, ": Player seen")
 		player_visible = true
@@ -68,6 +81,9 @@ func _on_alert_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		print(name, ": Player escaped")
 		player_visible = false
+	elif body.is_in_group("possessed") and body != self:
+		print(name, ": Possessed enemy escaped")
+		possess_visible = false
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -75,12 +91,19 @@ func _on_attack_range_body_entered(body: Node2D) -> void:
 		if body.is_dead: return
 		print(name, ": Player in attack range")
 		player_in_attack_range = true
+	elif body.is_in_group("possessed") and body != self:
+		if body.is_dead: return
+		print(name, ": Possessed enemy in attack range")
+		possess_in_attack_range = true
 
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") :
 		print(name, ": Player out of attack range")
 		player_in_attack_range = false
+	elif (body.is_in_group("possessed") and body != self):
+		print(name, ": Possessed enemy out of attack range")
+		possess_in_attack_range = false
 
 
 func _on_parry(enem : Enemy):
@@ -97,8 +120,22 @@ func hide_possess_sign() -> void:
 	posses_sign.hide()
 
 
-func _on_hurt_area_body_entered(body: Node2D) -> void:
-	if body is Weapon and health > 0:
-		health -= body.damage
-		if health <= 0:
-			health = 0
+func _on_hurt_area_area_entered(area: Area2D) -> void:
+	if health == 0:
+		return
+	if area is Weapon:
+		print("Enemy :: OUCH : ", area.damage)
+		#take_damage(area.damage)
+		var params : Dictionary
+		params["damage"] = area.damage
+		if is_possessed:
+			fsm.request_transition("p_hurt", params)
+		else:
+			fsm.request_transition("hurt", params)
+	else:
+		print("OUCH : ", area)
+
+func take_damage(damage : float):
+	health -= damage
+	if health <=0:
+		health = 0

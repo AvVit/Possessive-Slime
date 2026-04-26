@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://dh1521g0okcww" path="res://Characters/scripts/mouse states/dead.gd" id="7_rs03m"]
 [ext_resource type="Script" uid="uid://ce1ihoqhii48v" path="res://Characters/scripts/mouse states/hurt.gd" id="7_skmeb"]
 [ext_resource type="Script" uid="uid://clytpa1bdvf1q" path="res://Characters/scripts/mouse states/fallState.gd" id="8_xehkb"]
+[ext_resource type="Theme" uid="uid://cmpq66ii3dfyu" path="res://resources/health_bar_thene.tres" id="11_3n180"]
+[ext_resource type="Theme" uid="uid://4gjitgxc76sq" path="res://resources/posture_bar_theme.tres" id="11_hlcj7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ivv4n"]
 radius = 15.0
@@ -28,8 +30,10 @@ radius = 66.0
 height = 190.0
 
 [node name="Slime" type="CharacterBody2D" unique_id=479474688 groups=["player"]]
-collision_mask = 5
+collision_mask = 7
 script = ExtResource("1_qgb16")
+max_air_speed = 400
+recovery_time = 5.0
 
 [node name="SlimeCol" type="CollisionShape2D" parent="." unique_id=420144786]
 position = Vector2(0, -5)
@@ -199,12 +203,23 @@ offset = Vector2(0, -163.375)
 zoom = Vector2(1.5, 1.5)
 
 [node name="health" type="ProgressBar" parent="." unique_id=1205676992]
-offset_left = -27.0
-offset_top = -68.0
-offset_right = 31.0
-offset_bottom = -44.0
+offset_left = -29.0
+offset_top = -65.0
+offset_right = 29.0
+offset_bottom = -41.0
+theme = ExtResource("11_3n180")
 theme_override_font_sizes/font_size = 14
 value = 100.0
+
+[node name="posture" type="ProgressBar" parent="." unique_id=1432580542]
+offset_left = -29.0
+offset_top = -32.0
+offset_right = 29.0
+offset_bottom = -28.0
+theme = ExtResource("11_hlcj7")
+theme_override_font_sizes/font_size = 14
+value = 100.0
+show_percentage = false
 
 [node name="block or parry" type="Label" parent="." unique_id=1152117528]
 visible = false

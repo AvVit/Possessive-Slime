@@ -1,8 +1,12 @@
 extends PossessedState
 #var player_ref : Slime
+var targetpos : Vector2
+var prev_multi : float
 
 func enter(params: Dictionary = {}):
 	super.enter()
+	prev_multi = enem_ref.attack_multi
+	enem_ref.attack_multi = 1
 	enem_ref.current_speed = 0
 	enem_ref.anim_player.play("p_attack")
 	enem_ref.anim_player.animation_finished.connect(_on_attack_finished)
@@ -10,9 +14,11 @@ func enter(params: Dictionary = {}):
 
 func exit():
 	super.exit()
+	enem_ref.attack_multi = prev_multi
 	enem_ref.anim_player.animation_finished.disconnect(_on_attack_finished)
 
 func process(delta : float):
+	
 	var input_dir = Input.get_axis("left", "right")
 	enem_ref.dir.x = input_dir
 	if(Input.is_action_pressed("run")):

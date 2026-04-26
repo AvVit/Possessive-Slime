@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bvw70111ufd7w" path="res://Scenes/scripts/game_over.gd" id="1_ojehl"]
 
+[sub_resource type="Theme" id="Theme_ojehl"]
+Label/constants/outline_size = 36
+
 [node name="Game Over" type="Node2D" unique_id=641634256]
 script = ExtResource("1_ojehl")
 
@@ -10,6 +13,7 @@ offset_left = 120.0
 offset_top = 93.0
 offset_right = 1067.0
 offset_bottom = 428.0
+theme = SubResource("Theme_ojehl")
 theme_override_font_sizes/font_size = 158
 text = "GAME OVER"
 

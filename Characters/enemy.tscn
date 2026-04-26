@@ -10,13 +10,19 @@
 [ext_resource type="Script" uid="uid://b8n0y43nl4fio" path="res://Characters/scripts/attack.gd" id="5_gd1y4"]
 [ext_resource type="Script" uid="uid://cotm5j1ch2h48" path="res://Characters/scripts/enemy states/dead.gd" id="5_rq3xi"]
 [ext_resource type="Script" uid="uid://bfpa4cdbc3lma" path="res://Characters/scripts/enemy states/fall.gd" id="6_gd1y4"]
+[ext_resource type="Script" uid="uid://b14p0ayxtgp4t" path="res://Characters/scripts/enemy states/p_chase.gd" id="7_a28xf"]
 [ext_resource type="Script" uid="uid://lglevsnkj24k" path="res://Characters/scripts/enemy states/parried.gd" id="7_u75dg"]
 [ext_resource type="Script" uid="uid://ckjc1moirlqi1" path="res://Characters/scripts/enemy states/p_idle.gd" id="9_7n8kr"]
+[ext_resource type="Script" uid="uid://buik7vo2defp7" path="res://Characters/scripts/enemy states/hurt.gd" id="10_ilkdp"]
 [ext_resource type="Script" uid="uid://bmbhytr2iixgw" path="res://Characters/scripts/enemy states/p_walk.gd" id="10_oyr2l"]
 [ext_resource type="Script" uid="uid://bgvhh8t67w7dw" path="res://Characters/scripts/enemy states/p_run.gd" id="11_bf4kt"]
+[ext_resource type="Script" uid="uid://drkvgblo8y28d" path="res://Characters/scripts/enemy states/alert.gd" id="11_ceida"]
 [ext_resource type="Script" uid="uid://csl1cfpu525s" path="res://Characters/scripts/enemy states/p_jump.gd" id="11_kptum"]
+[ext_resource type="Script" uid="uid://d3gepe0hskqck" path="res://Characters/scripts/enemy states/p_hurt.gd" id="11_s1s05"]
 [ext_resource type="Script" uid="uid://bpski0as4h2q5" path="res://Characters/scripts/enemy states/p_fall.gd" id="12_s3edj"]
 [ext_resource type="Script" uid="uid://clcpamcyaqny8" path="res://Characters/scripts/enemy states/p_attack.gd" id="13_djews"]
+[ext_resource type="Theme" uid="uid://cmpq66ii3dfyu" path="res://resources/health_bar_thene.tres" id="21_4vm1m"]
+[ext_resource type="Theme" uid="uid://c380gwhcqslyw" path="res://resources/label.tres" id="22_klo0b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p6t1j"]
 radius = 18.0
@@ -302,6 +308,94 @@ tracks/5/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_a28xf"]
+resource_name = "attack_hurt"
+length = 2.5666666
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.8666667, 1.06, 1.3, 1.92),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6.975, -23), Vector2(-6, -21), Vector2(-10.775, -26.27), Vector2(30.000002, -3.000002), Vector2(27.17, -8.745), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.8666667, 1.06, 1.3, 1.92),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.6230825429619754, -1.019667, -1.019667, 1.561322, 1.6144295580947547, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.32655507, 1.1989237, 2.1505985, 2.5666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5.999999), Vector2(0, 10), Vector2(0, 5.999999), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.32655507, 1.1989237, 2.1505985, 2.5666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.85), Vector2(1, 0.75), Vector2(1, 0.85), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.5666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.9730306, 1.0666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("poss_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -48)]
+}
+
 [sub_resource type="Animation" id="Animation_ff3nx"]
 resource_name = "dead"
 length = 1.2
@@ -392,7 +486,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_s3edj"]
 resource_name = "fall"
-length = 1.2
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -400,7 +494,7 @@ tracks/0/path = NodePath("weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.1),
+"times": PackedFloat32Array(0, 0.033333335, 0.06666665),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -5.96), Vector2(0, 0)]
@@ -412,7 +506,7 @@ tracks/1/path = NodePath("weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.13),
+"times": PackedFloat32Array(0, 0.09666662),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 0.0]
@@ -424,7 +518,7 @@ tracks/2/path = NodePath("Polygon2D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0, 0.13333334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.33335788713091735, -0.11170107212763668]
@@ -436,7 +530,7 @@ tracks/3/path = NodePath("Polygon2D:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0, 0.13333334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1)]
@@ -448,7 +542,7 @@ tracks/4/path = NodePath("Polygon2D:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.9796653, 1.2),
+"times": PackedFloat32Array(0, 0.03333333, 0.13333334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -11.5), Vector2(0, 0), Vector2(0, 0)]
@@ -460,7 +554,7 @@ tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(-0.3),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -472,10 +566,98 @@ tracks/6/path = NodePath("poss_point:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0, 0.13333334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(11, -58), Vector2(0, -48)]
+}
+
+[sub_resource type="Animation" id="Animation_ilkdp"]
+resource_name = "hurt"
+length = 0.6333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.56666666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5.96), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.53333336),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.7875), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 8.5), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("weapon/CollisionShape2D4:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("poss_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -48), Vector2(1, -55), Vector2(0, -48)]
 }
 
 [sub_resource type="Animation" id="Animation_04wy3"]
@@ -569,7 +751,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_kptum"]
 resource_name = "jump"
-length = 1.2
+length = 0.13333334
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -577,7 +759,7 @@ tracks/0/path = NodePath("weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.1),
+"times": PackedFloat32Array(0, 0.03333336, 0.06666666),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -5.96), Vector2(0, 0)]
@@ -589,7 +771,7 @@ tracks/1/path = NodePath("weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.13),
+"times": PackedFloat32Array(0, 0.096666634),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 0.0]
@@ -601,7 +783,7 @@ tracks/2/path = NodePath("Polygon2D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.06666666, 0.13333334),
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.33335788713091735]
@@ -613,7 +795,7 @@ tracks/3/path = NodePath("Polygon2D:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.056666613, 0.16666667),
+"times": PackedFloat32Array(0, 0.023333285, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1.2875), Vector2(1, 1)]
@@ -625,7 +807,7 @@ tracks/4/path = NodePath("Polygon2D:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.056666613, 0.16666667),
+"times": PackedFloat32Array(0, 0.023333285, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -11.5), Vector2(0, 0)]
@@ -649,10 +831,10 @@ tracks/6/path = NodePath("poss_point:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.064621314, 0.23425226),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.031287987, 0.06709161, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -48), Vector2(0, -71), Vector2(14, -46)]
+"values": [Vector2(0, -48), Vector2(0, -67.91), Vector2(14, -51), Vector2(14, -46)]
 }
 
 [sub_resource type="Animation" id="Animation_djews"]
@@ -1002,8 +1184,10 @@ _data = {
 &"RESET": SubResource("Animation_p6t1j"),
 &"attack": SubResource("Animation_7n8kr"),
 &"attack2": SubResource("Animation_sdfay"),
+&"attack_hurt": SubResource("Animation_a28xf"),
 &"dead": SubResource("Animation_ff3nx"),
 &"fall": SubResource("Animation_s3edj"),
+&"hurt": SubResource("Animation_ilkdp"),
 &"idle": SubResource("Animation_04wy3"),
 &"jump": SubResource("Animation_kptum"),
 &"p_attack": SubResource("Animation_djews"),
@@ -1018,6 +1202,7 @@ collision_mask = 3
 script = ExtResource("1_04wy3")
 possess_point = NodePath("poss_point")
 run_speed = 500
+max_air_speed = 500
 jump_force = 1200
 metadata/_custom_type_script = "uid://chklni26vsuh2"
 
@@ -1025,6 +1210,8 @@ metadata/_custom_type_script = "uid://chklni26vsuh2"
 shape = SubResource("CapsuleShape2D_p6t1j")
 
 [node name="Alert Area" type="Area2D" parent="." unique_id=1031712309]
+z_index = 3
+collision_mask = 5
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Alert Area" unique_id=1614227212]
 position = Vector2(0, -117)
@@ -1052,6 +1239,8 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_p6t1j")
 
 [node name="Floor Detection" type="Area2D" parent="." unique_id=253098967]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Floor Detection" unique_id=1241832812]
 position = Vector2(44, 48)
@@ -1059,7 +1248,8 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7n8kr")
 
 [node name="Wall Detection" type="Area2D" parent="." unique_id=1446416883]
-collision_mask = 5
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall Detection" unique_id=425833510]
 position = Vector2(31.5, 4.207221e-07)
@@ -1095,6 +1285,7 @@ color = Color(0.2282564, 0.075023465, 0.06518458, 1)
 polygon = PackedVector2Array(-1, -38.735, -5.445, -37.694, -9, -35.54, -12.269, -32.208, -13.853, -29.933, -15.84, -25.882, -16.926, -20.235, -17.196, -16.471, -16.94, -13.647, -16.279, -11.765, -14.487, -9.291, -12.774284, -7.9999967, -13.867, -6.118, -15.013, -3.294, -16.144, 3.294, -16, 13, -15.915, 23, -14.403, 29.467, -11, 35.65, -8, 40, 15, 40, 18, 8, 18.58, 1.045, 18, -2, 12.4833355, -10.823526, 15.967146, -13.647056, 17.70905, -16.470585, 17.70905, -20.23529, 13, -34, 2.155, -38.5)
 
 [node name="Attack Range" type="Area2D" parent="." unique_id=201467699]
+collision_mask = 5
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Attack Range" unique_id=32048838]
 position = Vector2(48, -9)
@@ -1147,6 +1338,11 @@ state_name = "walk"
 script = ExtResource("4_rq3xi")
 state_name = "chase"
 
+[node name="pos_chase" type="Node" parent="EnemyFSM" unique_id=1138114040]
+script = ExtResource("7_a28xf")
+state_name = "pos_chase"
+metadata/_custom_type_script = "uid://cetsxui12vn7q"
+
 [node name="attack" type="Node" parent="EnemyFSM" unique_id=1603720024]
 script = ExtResource("5_gd1y4")
 state_name = "attack"
@@ -1158,6 +1354,20 @@ state_name = "parried"
 [node name="idle" type="Node" parent="EnemyFSM" unique_id=1948520376]
 script = ExtResource("4_mpxx0")
 state_name = "idle"
+
+[node name="alert" type="Node" parent="EnemyFSM" unique_id=1954061592]
+script = ExtResource("11_ceida")
+state_name = "alert"
+
+[node name="hurt" type="Node" parent="EnemyFSM" unique_id=116197352]
+script = ExtResource("10_ilkdp")
+state_name = "hurt"
+metadata/_custom_type_script = "uid://cetsxui12vn7q"
+
+[node name="p_hurt" type="Node" parent="EnemyFSM" unique_id=916732596]
+script = ExtResource("11_s1s05")
+state_name = "p_hurt"
+metadata/_custom_type_script = "uid://cetsxui12vn7q"
 
 [node name="p_idle" type="Node" parent="EnemyFSM" unique_id=1164847516]
 script = ExtResource("9_7n8kr")
@@ -1197,13 +1407,6 @@ state_name = "dead"
 script = ExtResource("6_gd1y4")
 state_name = "fall"
 
-[node name="Possess Sign" type="Label" parent="." unique_id=722566041]
-offset_left = -27.0
-offset_top = -64.0
-offset_right = 34.0
-offset_bottom = -41.0
-text = "Possess"
-
 [node name="poss_point" type="Marker2D" parent="." unique_id=310440344]
 position = Vector2(0, -48)
 
@@ -1219,11 +1422,22 @@ offset_left = -27.0
 offset_top = -88.0
 offset_right = 31.0
 offset_bottom = -64.0
+theme = ExtResource("21_4vm1m")
 theme_override_font_sizes/font_size = 14
 value = 100.0
 
+[node name="Possess Sign" type="Label" parent="UI" unique_id=722566041]
+visible = false
+layout_mode = 0
+offset_left = -27.0
+offset_top = -64.0
+offset_right = 34.0
+offset_bottom = -41.0
+theme = ExtResource("22_klo0b")
+text = "Possess"
+
 [connection signal="body_exited" from="Alert Area" to="." method="_on_alert_area_body_exited"]
-[connection signal="area_entered" from="Hurt Area" to="." method="_on_hurt_area_body_entered"]
+[connection signal="area_entered" from="Hurt Area" to="." method="_on_hurt_area_area_entered"]
 [connection signal="body_entered" from="Vision Area" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_entered" from="Attack Range" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="Attack Range" to="." method="_on_attack_range_body_exited"]

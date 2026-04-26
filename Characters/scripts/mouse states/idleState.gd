@@ -7,7 +7,7 @@ func enter(params: Dictionary = {}):
 func process(delta : float):
 	if(Input.is_action_pressed("block")):
 		transition_to.emit("block", self)
-		return
+
 	if(Input.is_action_pressed("left") || Input.is_action_pressed("right")):
 		transition_to.emit("walk", self)
 		return

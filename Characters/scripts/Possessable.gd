@@ -31,6 +31,8 @@ func _process(delta: float) -> void:
 		hide_possess_sign()
 	if(!is_on_floor()):
 		velocity.y += gravity
+
+func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func show_possess_sign() -> void:
