@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dpsxqeythdyok" path="res://Characters/scripts/Mouse.gd" id="1_p6vf3"]
 [ext_resource type="Script" uid="uid://g3a7h5wv6tne" path="res://State Machine/State Machine.gd" id="2_dw1ef"]
-[ext_resource type="Script" uid="uid://cglj16s7xf28d" path="res://Characters/scripts/mouse states/walkState.gd" id="3_cwe50"]
-[ext_resource type="Script" uid="uid://ce5lnq060ndpr" path="res://Characters/scripts/mouse states/runState.gd" id="4_rvwui"]
-[ext_resource type="Script" uid="uid://b1uulvs06d3sd" path="res://Characters/scripts/mouse states/jumpState.gd" id="5_cppfo"]
-[ext_resource type="Script" uid="uid://0htcuc7df7er" path="res://Characters/scripts/mouse states/idleState.gd" id="6_t4gxj"]
-[ext_resource type="Script" uid="uid://cvvxsqwu4nl7i" path="res://Characters/scripts/mouse states/possessingState.gd" id="7_rvwui"]
-[ext_resource type="Script" uid="uid://rm5shgc0420x" path="res://Characters/scripts/mouse states/possessedState.gd" id="8_rvwui"]
-[ext_resource type="Script" uid="uid://clytpa1bdvf1q" path="res://Characters/scripts/mouse states/fallState.gd" id="9_cppfo"]
-[ext_resource type="Script" uid="uid://dm0jper30m6v0" path="res://Characters/scripts/mouse states/swimState.gd" id="10_t4gxj"]
+[ext_resource type="Script" uid="uid://cglj16s7xf28d" path="res://Characters/scripts/slime states/walkState.gd" id="3_cwe50"]
+[ext_resource type="Script" uid="uid://ce5lnq060ndpr" path="res://Characters/scripts/slime states/runState.gd" id="4_rvwui"]
+[ext_resource type="Script" uid="uid://b1uulvs06d3sd" path="res://Characters/scripts/slime states/jumpState.gd" id="5_cppfo"]
+[ext_resource type="Script" uid="uid://0htcuc7df7er" path="res://Characters/scripts/slime states/idleState.gd" id="6_t4gxj"]
+[ext_resource type="Script" path="res://Characters/scripts/mouse states/possessingState.gd" id="7_rvwui"]
+[ext_resource type="Script" path="res://Characters/scripts/mouse states/possessedState.gd" id="8_rvwui"]
+[ext_resource type="Script" uid="uid://clytpa1bdvf1q" path="res://Characters/scripts/slime states/fallState.gd" id="9_cppfo"]
+[ext_resource type="Script" path="res://Characters/scripts/mouse states/swimState.gd" id="10_t4gxj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w05kq"]
 radius = 8.0
